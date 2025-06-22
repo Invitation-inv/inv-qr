@@ -78,6 +78,12 @@
       background: rgba(255,255,255,0.9);
       color: #111;
     }
+    #downloadBtn {
+      display: none;
+      background: #4CAF50;
+      color: white;
+      font-size: 18px;
+    }
     @media (max-width: 600px) {
       .content-box { padding: 20px; }
       h1, h2 { font-size: 22px; }
@@ -158,10 +164,11 @@
 <div class="page" id="page4" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>هل ستحضر؟</h2>
-    <button onclick="sendResponse('yes')">نعم، سأحضر بأذن الله</button>
-    <button onclick="sendResponse('no')"> لا، أعتذر عن الحضور</button>
+    <button onclick="sendResponse('yes')">✅ نعم، سأحضر</button>
+    <button onclick="sendResponse('no')">❌ لا، أعتذر</button>
     <p id="responseMsg" style="margin-top: 20px; font-weight: bold;"></p>
     <div id="qrContainer" style="margin-top: 20px;"></div>
+    <button id="downloadBtn">📥 تحميل QR</button>
   </div>
 </div>
 
@@ -173,6 +180,7 @@
   const guestName = document.getElementById("guestName");
   const msg = document.getElementById("responseMsg");
   const qrContainer = document.getElementById("qrContainer");
+  const downloadBtn = document.getElementById("downloadBtn");
 
   guestName.innerText = `🎓 حيّاك ${nameParam}!`;
 
@@ -186,14 +194,14 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbyor3wdabIDHSQ5cwXbns0Khr3neXrJJdPZ_hm8EES9bDBq4xCZKdYP7TXQDeI-RKgp/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
           msg.innerText = res.message;
           if (res.qrUrl) {
-            localStorage.setItem("qr_" + token, res.qrUrl); // حفظ QR محليًا
-            qrContainer.innerHTML = `<img src="${res.qrUrl}" width="200" height="200">`;
+            localStorage.setItem("qr_" + token, res.qrUrl);
+            showQR(res.qrUrl);
           }
         } else {
           msg.innerText = "❌ الرابط غير صالح أو انتهت صلاحيته.";
@@ -202,13 +210,25 @@
       .catch(() => msg.innerText = "حدث خطأ أثناء الاتصال.");
   }
 
-  // عند تحميل الصفحة، عرض QR إذا كان محفوظ
-  const storedQr = localStorage.getItem("qr_" + token);
-  if (storedQr) {
-    qrContainer.innerHTML = `<img src="${storedQr}" width="200" height="200">`;
+  function showQR(qrUrl) {
+    qrContainer.innerHTML = `<img src="${qrUrl}" width="200" height="200"><br>`;
+    downloadBtn.style.display = "inline-block";
   }
 
-  // الموسيقى
+  downloadBtn.addEventListener("click", function() {
+    const img = qrContainer.querySelector("img");
+    if (!img) return;
+    const link = document.createElement("a");
+    link.href = img.src;
+    link.download = "QR_Code.png";
+    link.click();
+  });
+
+  const storedQr = localStorage.getItem("qr_" + token);
+  if (storedQr) {
+    showQR(storedQr);
+  }
+
   const bgMusic = document.getElementById("bg-music");
   function toggleMusic() {
     try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
@@ -220,7 +240,6 @@
     try { if (bgMusic.paused) bgMusic.play(); } catch {}
   }
 
-  // سحب للتنقل
   let startX = 0;
   document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
   document.addEventListener("touchend", e => {
@@ -232,7 +251,6 @@
     }
   });
 
-  // عد تنازلي
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T20:00:00").getTime();
   setInterval(() => {
