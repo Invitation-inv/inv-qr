@@ -166,8 +166,8 @@
 <div class="page" id="page4" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>هل ستحضر؟</h2>
-    <button onclick="sendResponse('yes')">✅ نعم، سأحضر</button>
-    <button onclick="sendResponse('no')">❌ لا، أعتذر</button>
+    <button id="yesBtn" onclick="sendResponse('yes')">✅ نعم، سأحضر</button>
+    <button id="noBtn" onclick="sendResponse('no')">❌ لا، أعتذر</button>
     <p id="responseMsg" style="margin-top: 20px; font-weight: bold;"></p>
     <div id="qrContainer" style="margin-top: 20px;"></div>
     <button id="downloadBtn">📥 تحميل QR</button>
@@ -196,7 +196,7 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbxKPyTRdSHSgqWQOJPpXTEHXkSxo-nmNr7Xu1xMXshDF0IaatW4PKB7LYlEwBWvxXrz/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbwmxLmNfly9ex6lAA9_yh6RWmwfC9PejzhmvCT9bk9pXdIsGpMUp9BwjclbQwRqpA5O/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
@@ -206,7 +206,7 @@
             localStorage.setItem("qr_" + token, res.qrUrl);
             showQR(res.qrUrl);
           }
-          hideResponseOptions();
+          hideResponseOptions(); // إخفاء الأزرار
         } else {
           msg.innerText = "❌ الرابط غير صالح أو انتهت صلاحيته.";
         }
@@ -220,10 +220,8 @@
   }
 
   function hideResponseOptions() {
-    const buttons = document.querySelectorAll('#page4 button');
-    buttons.forEach(btn => {
-      if (!btn.id.includes("downloadBtn")) btn.style.display = "none";
-    });
+    document.getElementById("yesBtn").style.display = "none";
+    document.getElementById("noBtn").style.display = "none";
   }
 
   downloadBtn.addEventListener("click", function () {
@@ -235,6 +233,7 @@
     link.click();
   });
 
+  // عند تحميل الصفحة
   const storedQr = localStorage.getItem("qr_" + token);
   const alreadyResponded = localStorage.getItem("responded_" + token);
   if (alreadyResponded === "true") {
