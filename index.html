@@ -180,7 +180,7 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbyjnbdkliDSHH_pqqlIC_AAykD3uu3bJLL6hijlzWAK7IRIe2qOS9hYYO9uy3aiH8bG/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbzpvGYy-ihM8p8RcsK5YF2d3A2qhSKVCohCa4HPbVyC_DxwQ3Slgyix241Xh2B2wpr9/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
