@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,6 +117,7 @@
 <div id="intro">
   <button onclick="startExperience()">ابدأ</button>
 </div>
+
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 <audio id="bg-music" loop>
   <source src="music.mp3" type="audio/mpeg">
@@ -194,15 +196,17 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycby3hkQAqAJRbucmO36Ba7S1KuPB2WdulSPHyswsVOGgkckuGnjaQkmZsz0RbDb1XFe_/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxKPyTRdSHSgqWQOJPpXTEHXkSxo-nmNr7Xu1xMXshDF0IaatW4PKB7LYlEwBWvxXrz/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
           msg.innerText = res.message;
+          localStorage.setItem("responded_" + token, "true");
           if (res.qrUrl) {
             localStorage.setItem("qr_" + token, res.qrUrl);
             showQR(res.qrUrl);
           }
+          hideResponseOptions();
         } else {
           msg.innerText = "❌ الرابط غير صالح أو انتهت صلاحيته.";
         }
@@ -215,7 +219,14 @@
     downloadBtn.style.display = "inline-block";
   }
 
-  downloadBtn.addEventListener("click", function() {
+  function hideResponseOptions() {
+    const buttons = document.querySelectorAll('#page4 button');
+    buttons.forEach(btn => {
+      if (!btn.id.includes("downloadBtn")) btn.style.display = "none";
+    });
+  }
+
+  downloadBtn.addEventListener("click", function () {
     const img = qrContainer.querySelector("img");
     if (!img) return;
     const link = document.createElement("a");
@@ -225,8 +236,10 @@
   });
 
   const storedQr = localStorage.getItem("qr_" + token);
-  if (storedQr) {
-    showQR(storedQr);
+  const alreadyResponded = localStorage.getItem("responded_" + token);
+  if (alreadyResponded === "true") {
+    if (storedQr) showQR(storedQr);
+    hideResponseOptions();
   }
 
   const bgMusic = document.getElementById("bg-music");
@@ -263,5 +276,6 @@
     countdownEl.innerText = `يتبقى ${d} يوم ${h} ساعة ${m} دقيقة`;
   }, 1000);
 </script>
+
 </body>
 </html>
