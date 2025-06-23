@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,16 +111,9 @@
     }
   </style>
 </head>
-<body>
-
-<div id="intro">
+<body><div id="intro">
   <button onclick="startExperience()">ابدأ</button>
-</div>
-
-<button class="music-btn" onclick="toggleMusic()">🎵</button>
-<audio id="bg-music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
 
 <div id="nav-arrows">
   <div onclick="goToPage(currentPage + 1)">
@@ -132,51 +124,38 @@
     <div>⬅</div>
     <div>السابق</div>
   </div>
-</div>
-
-<!-- الصفحة 1 -->
-<div class="page active" id="page1" style="background-image: url('105638.png');">
+</div><div class="page active" id="page1" style="background-image: url('105638.png');">
   <div class="content-box">
     <h1 id="guestName">🎓 حيّاك الله!</h1>
     <p>ولأن الأفراح لا تكتمل إلا بحضور من نحب 💖</p>
     <p>يسعدني ويشرفني دعوتكم لحضور</p>
     <p>🎓 حفل تخرج ابنتي "مدى"</p>
   </div>
-</div>
-
-<!-- الصفحة 2 -->
-<div class="page" id="page2" style="background-image: url('105638.png');">
+</div><div class="page" id="page2" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
     <p>📍 المكان: ...... - الرياض</p>
     <p>🕒 الوقت: يوم ...... الساعة ...... مساءً</p>
     <div id="countdown" style="margin-top: 20px; font-size: 22px;"></div>
   </div>
-</div>
-
-<!-- الصفحة 3 -->
-<div class="page" id="page3" style="background-image: url('105638.png');">
+</div><div class="page" id="page3" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>موقع القاعة</h2>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18..." width="100%" height="300" style="border:0;" allowfullscreen></iframe>
   </div>
-</div>
-
-<!-- الصفحة 4 -->
-<div class="page" id="page4" style="background-image: url('105638.png');">
+</div><div class="page" id="page4" style="background-image: url('105638.png');">
   <div class="content-box">
-    <h2>هل ستحضر؟</h2>
-    <button id="yesBtn" onclick="sendResponse('yes')">✅ نعم، سأحضر</button>
-    <button id="noBtn" onclick="sendResponse('no')">❌ لا، أعتذر</button>
+    <h2 id="attendanceTitle">هل ستحضر؟</h2>
+    <div id="responseButtons">
+      <button onclick="sendResponse('yes')">✅ نعم، سأحضر</button>
+      <button onclick="sendResponse('no')">❌ لا، أعتذر</button>
+    </div>
     <p id="responseMsg" style="margin-top: 20px; font-weight: bold;"></p>
     <div id="qrContainer" style="margin-top: 20px;"></div>
+    <p id="qrNote" style="display: none; margin-top: 10px; font-size: 14px; color: #eee;">📌 يرجى عدم استخدام رمز الدخول قبل يوم المناسبة. سيُستخدم للتحقق عند الدخول.</p>
     <button id="downloadBtn">📥 تحميل QR</button>
-    <p>ركز الدعوه يعمل مره وحده </p>
-    <p>احفظ رمز التحقق اوعد للصفحة لستخدامة عند الدخول </p>
   </div>
-</div>
-
-<script>
+</div><script>
   let currentPage = 1;
   const pages = document.querySelectorAll('.page');
   const nameParam = new URLSearchParams(location.search).get("name") || "";
@@ -185,6 +164,9 @@
   const msg = document.getElementById("responseMsg");
   const qrContainer = document.getElementById("qrContainer");
   const downloadBtn = document.getElementById("downloadBtn");
+  const attendanceTitle = document.getElementById("attendanceTitle");
+  const responseButtons = document.getElementById("responseButtons");
+  const qrNote = document.getElementById("qrNote");
 
   guestName.innerText = `🎓 حيّاك ${nameParam}!`;
 
@@ -198,7 +180,7 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbwmxLmNfly9ex6lAA9_yh6RWmwfC9PejzhmvCT9bk9pXdIsGpMUp9BwjclbQwRqpA5O/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbyjnbdkliDSHH_pqqlIC_AAykD3uu3bJLL6hijlzWAK7IRIe2qOS9hYYO9uy3aiH8bG/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
@@ -208,7 +190,7 @@
             localStorage.setItem("qr_" + token, res.qrUrl);
             showQR(res.qrUrl);
           }
-          hideResponseOptions(); // إخفاء الأزرار
+          hideResponseOptions();
         } else {
           msg.innerText = "❌ الرابط غير صالح أو انتهت صلاحيته.";
         }
@@ -219,11 +201,12 @@
   function showQR(qrUrl) {
     qrContainer.innerHTML = `<img src="${qrUrl}" width="200" height="200"><br>`;
     downloadBtn.style.display = "inline-block";
+    qrNote.style.display = "block";
   }
 
   function hideResponseOptions() {
-    document.getElementById("yesBtn").style.display = "none";
-    document.getElementById("noBtn").style.display = "none";
+    responseButtons.style.display = "none";
+    attendanceTitle.style.display = "none";
   }
 
   downloadBtn.addEventListener("click", function () {
@@ -235,7 +218,6 @@
     link.click();
   });
 
-  // عند تحميل الصفحة
   const storedQr = localStorage.getItem("qr_" + token);
   const alreadyResponded = localStorage.getItem("responded_" + token);
   if (alreadyResponded === "true") {
@@ -276,7 +258,5 @@
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     countdownEl.innerText = `يتبقى ${d} يوم ${h} ساعة ${m} دقيقة`;
   }, 1000);
-</script>
-
-</body>
+</script></body>
 </html>
