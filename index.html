@@ -19,7 +19,7 @@
       text-align: center;
       background-size: cover;
       background-position: center;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
     }
     .page.active {
       display: block;
@@ -95,7 +95,7 @@
       color: white;
       text-align: center;
       transform-origin: left center;
-      transition: transform 3s ease, opacity 1s ease;
+      transition: transform 1s ease, opacity 0.5s ease;
     }
     #intro.close {
       transform: rotateY(-90deg);
@@ -181,12 +181,13 @@
     if (num < 1 || num > pages.length) return;
     pages.forEach(p => p.classList.remove('active'));
     document.getElementById('page' + num).classList.add('active');
+    currentPage = num; // ✅ التعديل هنا
     try { if (bgMusic.paused) bgMusic.play(); } catch {}
   }
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbxLqxAFJ_svBIdEl-p3K1h_QU7-PZWMNwNRVdh85XY8_ScEuvSwo4spBvp2oMLGoDki/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
