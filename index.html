@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل التخرج</title>
+
+  <!-- ✅ تحسين تحميل الصور -->
+  <link rel="preload" as="image" href="105638.png">
+  <link rel="preload" as="image" href="105930.jpg">
+
   <style>
     * { box-sizing: border-box; }
     body {
@@ -11,7 +16,9 @@
       font-family: 'Tajawal', sans-serif;
       color: #fff;
       overflow-x: hidden;
+      background-color: #000;
     }
+
     .page {
       display: none;
       min-height: 100vh;
@@ -19,16 +26,22 @@
       text-align: center;
       background-size: cover;
       background-position: center;
-      transition: opacity 0.8s ease;
+      transition: opacity 0.5s ease;
     }
     .page.active {
       display: block;
       animation: fadeIn 1s ease;
     }
+
     @keyframes fadeIn {
       from { opacity: 0 }
       to { opacity: 1 }
     }
+
+    @media (max-width: 600px) {
+      .page.active { animation: none; }
+    }
+
     .content-box {
       background: rgba(0,0,0,0.5);
       padding: 30px;
@@ -37,6 +50,7 @@
       max-width: 90%;
       margin: auto;
     }
+
     .music-btn {
       position: fixed;
       top: 20px;
@@ -48,6 +62,7 @@
       border-radius: 8px;
       font-size: 20px;
     }
+
     #nav-arrows {
       position: fixed;
       top: 50%;
@@ -63,6 +78,9 @@
       text-align: center;
       width: 70px;
     }
+    #nav-arrows div div:first-child { font-size: 40px; }
+    #nav-arrows div div:last-child { font-size: 14px; }
+
     button {
       padding: 16px 28px;
       font-size: 20px;
@@ -73,11 +91,13 @@
       background: rgba(255,255,255,0.9);
       color: #111;
     }
+
     #downloadBtn {
       display: none;
       background: #4CAF50;
       color: white;
     }
+
     #intro {
       position: fixed;
       inset: 0;
@@ -92,6 +112,7 @@
       transform-origin: left center;
       transition: transform 1s ease, opacity 0.5s ease;
     }
+
     #intro.close {
       transform: rotateY(-90deg);
       opacity: 0;
@@ -181,15 +202,20 @@
   guestName.innerText = `🎓 حيّاك ${nameParam}!`;
 
   function goToPage(num) {
-    if (num < 1 || num > pages.length) return;
+    if (num < 1) num = 1;
+    if (num > pages.length) num = pages.length;
     pages.forEach(p => p.classList.remove('active'));
-    document.getElementById('page' + num).classList.add('active');
+    const nextPage = document.getElementById('page' + num);
+    if (nextPage) {
+      nextPage.classList.add('active');
+      currentPage = num;
+    }
     try { if (bgMusic.paused) bgMusic.play(); } catch {}
   }
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbzMQ76W7g7Hu5cYgkER-v3F5VIRZNYo-6G6pW8RXcwEa2OMzQnkBRE5ZV_HkOPgtEinmw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbzMQ76W7g7Hu5cYgkER-v3F5VIRZNYo-6G6pW8RXcwEa2OMzQnkBRE5ZV_HkOPgtEinmw/?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
@@ -234,6 +260,19 @@
     try { if (bgMusic.paused) bgMusic.play(); } catch {}
   }
 
+  // ✅ تمرير بالجوال
+  let startX = 0;
+  document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  document.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goToPage(currentPage + 1);
+      else goToPage(currentPage - 1);
+    }
+  });
+
+  // ✅ عداد تنازلي
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T20:00:00").getTime();
   setInterval(() => {
