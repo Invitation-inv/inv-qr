@@ -1,4 +1,5 @@
-<!-- HTML كامل لدعوة التخرج --><!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
       text-align: center;
       background-size: cover;
       background-position: center;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
     }
     .page.active {
       display: block;
@@ -76,13 +77,11 @@
       display: none;
       background: #4CAF50;
       color: white;
-      font-size: 18px;
     }
     @media (max-width: 600px) {
       .content-box { padding: 20px; }
       h1, h2 { font-size: 22px; }
       p { font-size: 16px; }
-      button { font-size: 18px; padding: 14px 22px; }
     }
     #intro {
       position: fixed;
@@ -96,7 +95,7 @@
       color: white;
       text-align: center;
       transform-origin: left center;
-      transition: transform 3s ease, opacity 1s ease;
+      transition: transform 1s ease, opacity 0.5s ease;
     }
     #intro.close {
       transform: rotateY(-90deg);
@@ -106,45 +105,64 @@
   </style>
 </head>
 <body>
-  <!-- المقدمة -->
-  <div id="intro">
-    <button onclick="startExperience()">ابدأ</button>
-  </div> <!-- زر الموسيقى --><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
 
-  <!-- الأسهم للتنقل --> <div id="nav-arrows">
-    <div onclick="goToPage(currentPage + 1)">➡ التالي</div>
-    <div onclick="goToPage(currentPage - 1)">⬅ السابق</div>
-  </div> <!-- صفحة الترحيب --> <div class="page active" id="page1" style="background-image: url('105638.png');">
-    <div class="content-box">
-      <h1 id="guestName">🎓 حيّاك الله!</h1>
-      <p>يسعدني ويشرفني دعوتكم لحضور</p>
-      <p>🎓 حفل تخرج ابنتي "مدى"</p>
+<div id="intro">
+  <button onclick="startExperience()">ابدأ</button>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="nav-arrows">
+  <div onclick="goToPage(currentPage + 1)">➡ التالي</div>
+  <div onclick="goToPage(currentPage - 1)">⬅ السابق</div>
+</div>
+
+<!-- صفحة الترحيب -->
+<div class="page active" id="page1" style="background-image: url('105638.png');">
+  <div class="content-box">
+    <h1 id="guestName">🎓 حيّاك الله!</h1>
+    <p>يسعدني ويشرفني دعوتكم لحضور</p>
+    <p>🎓 حفل تخرج ابنتي "مدى"</p>
+  </div>
+</div>
+
+<!-- صفحة التفاصيل -->
+<div class="page" id="page2" style="background-image: url('105638.png');">
+  <div class="content-box">
+    <h2>تفاصيل الحفل</h2>
+    <p>📍 المكان: ...... - الرياض</p>
+    <p>🕒 الوقت: يوم ...... الساعة ...... مساءً</p>
+    <div id="countdown" style="margin-top: 20px; font-size: 22px;"></div>
+  </div>
+</div>
+
+<!-- صفحة الخريطة -->
+<div class="page" id="page3" style="background-image: url('105638.png');">
+  <div class="content-box">
+    <h2>موقع القاعة</h2>
+    <iframe src="https://www.google.com/maps/embed?..." width="100%" height="300" style="border:0;" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- صفحة الرد -->
+<div class="page" id="page4" style="background-image: url('105638.png');">
+  <div class="content-box">
+    <h2 id="attendanceTitle">هل ستحضر؟</h2>
+    <div id="responseButtons">
+      <button onclick="sendResponse('yes')">✅ نعم</button>
+      <button onclick="sendResponse('no')">❌ لا</button>
     </div>
-  </div> <!-- صفحة التفاصيل --> <div class="page" id="page2" style="background-image: url('105638.png');">
-    <div class="content-box">
-      <h2>تفاصيل الحفل</h2>
-      <p>📍 المكان: ...... - الرياض</p>
-      <p>🕒 الوقت: يوم ...... الساعة ...... مساءً</p>
-      <div id="countdown" style="margin-top: 20px; font-size: 22px;"></div>
-    </div>
-  </div> <!-- صفحة الخريطة --> <div class="page" id="page3" style="background-image: url('105638.png');">
-    <div class="content-box">
-      <h2>موقع القاعة</h2>
-      <iframe src="https://www.google.com/maps/embed?..." width="100%" height="300" style="border:0;" allowfullscreen></iframe>
-    </div>
-  </div> <!-- صفحة الرد و QR --> <div class="page" id="page4" style="background-image: url('105638.png');">
-    <div class="content-box">
-      <h2 id="attendanceTitle">هل ستحضر؟</h2>
-      <div id="responseButtons">
-        <button onclick="sendResponse('yes')">✅ نعم</button>
-        <button onclick="sendResponse('no')">❌ لا</button>
-      </div>
-      <p id="responseMsg" style="margin-top: 20px; font-weight: bold;"></p>
-      <div id="qrContainer" style="margin-top: 20px;"></div>
-      <p id="qrNote" style="display: none; font-size: 14px;">📌 لا تستخدم الكود قبل المناسبة.</p>
-      <button id="downloadBtn">📥 تحميل QR</button>
-    </div>
-  </div><script>
+    <p id="responseMsg" style="margin-top: 20px; font-weight: bold;"></p>
+    <div id="qrContainer" style="margin-top: 20px;"></div>
+    <p id="qrNote" style="display: none; font-size: 14px;">📌 لا تستخدم الكود قبل المناسبة.</p>
+    <button id="downloadBtn">📥 تحميل QR</button>
+  </div>
+</div>
+
+<script>
   let currentPage = 1;
   const pages = document.querySelectorAll('.page');
   const nameParam = new URLSearchParams(location.search).get("name") || "";
@@ -168,7 +186,7 @@
 
   function sendResponse(response) {
     msg.innerText = "جاري الإرسال...";
-    fetch(`https://script.google.com/macros/s/AKfycbz5f7lsxUmylY59vhUZZozUAdYmeg5T7Nvq5eze3M_YIvKG_Fc3qECY-xMz2Xr6WMAI_Q/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxLqxAFJ_svBIdEl-p3K1h_QU7-PZWMNwNRVdh85XY8_ScEuvSwo4spBvp2oMLGoDki/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "success" || res.status === "already") {
@@ -213,6 +231,7 @@
     try { if (bgMusic.paused) bgMusic.play(); } catch {}
   }
 
+  // لمس للتنقل بين الصفحات
   let startX = 0;
   document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
   document.addEventListener("touchend", e => {
@@ -224,6 +243,7 @@
     }
   });
 
+  // عد تنازلي
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T20:00:00").getTime();
   setInterval(() => {
@@ -235,5 +255,7 @@
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     countdownEl.innerText = `يتبقى ${d} يوم ${h} ساعة ${m} دقيقة`;
   }, 1000);
-</script></body>
+</script>
+
+</body>
 </html>
