@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,9 +112,16 @@
     }
   </style>
 </head>
-<body><div id="intro">
+<body>
+
+<div id="intro">
   <button onclick="startExperience()">ابدأ</button>
-</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <div id="nav-arrows">
   <div onclick="goToPage(currentPage + 1)">
@@ -124,26 +132,38 @@
     <div>⬅</div>
     <div>السابق</div>
   </div>
-</div><div class="page active" id="page1" style="background-image: url('105638.png');">
+</div>
+
+<!-- صفحة الترحيب -->
+<div class="page active" id="page1" style="background-image: url('105638.png');">
   <div class="content-box">
     <h1 id="guestName">🎓 حيّاك الله!</h1>
     <p>ولأن الأفراح لا تكتمل إلا بحضور من نحب 💖</p>
     <p>يسعدني ويشرفني دعوتكم لحضور</p>
     <p>🎓 حفل تخرج ابنتي "مدى"</p>
   </div>
-</div><div class="page" id="page2" style="background-image: url('105638.png');">
+</div>
+
+<!-- صفحة التفاصيل -->
+<div class="page" id="page2" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
     <p>📍 المكان: ...... - الرياض</p>
     <p>🕒 الوقت: يوم ...... الساعة ...... مساءً</p>
     <div id="countdown" style="margin-top: 20px; font-size: 22px;"></div>
   </div>
-</div><div class="page" id="page3" style="background-image: url('105638.png');">
+</div>
+
+<!-- صفحة الخريطة -->
+<div class="page" id="page3" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>موقع القاعة</h2>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18..." width="100%" height="300" style="border:0;" allowfullscreen></iframe>
   </div>
-</div><div class="page" id="page4" style="background-image: url('105638.png');">
+</div>
+
+<!-- صفحة الرد -->
+<div class="page" id="page4" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
     <div id="responseButtons">
@@ -155,7 +175,9 @@
     <p id="qrNote" style="display: none; margin-top: 10px; font-size: 14px; color: #eee;">📌 يرجى عدم استخدام رمز الدخول قبل يوم المناسبة. سيُستخدم للتحقق عند الدخول.</p>
     <button id="downloadBtn">📥 تحميل QR</button>
   </div>
-</div><script>
+</div>
+
+<script>
   let currentPage = 1;
   const pages = document.querySelectorAll('.page');
   const nameParam = new URLSearchParams(location.search).get("name") || "";
@@ -185,17 +207,16 @@
       .then(res => {
         if (res.status === "success" || res.status === "already") {
           msg.innerText = res.message;
-          localStorage.setItem("responded_" + token, "true");
-          if (res.qrUrl) {
-            localStorage.setItem("qr_" + token, res.qrUrl);
-            showQR(res.qrUrl);
-          }
+          if (res.qrUrl) showQR(res.qrUrl);
           hideResponseOptions();
         } else {
           msg.innerText = "❌ الرابط غير صالح أو انتهت صلاحيته.";
         }
       })
-      .catch(() => msg.innerText = "حدث خطأ أثناء الاتصال.");
+      .catch(err => {
+        console.error("Error:", err);
+        msg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.";
+      });
   }
 
   function showQR(qrUrl) {
@@ -217,13 +238,6 @@
     link.download = "QR_Code.png";
     link.click();
   });
-
-  const storedQr = localStorage.getItem("qr_" + token);
-  const alreadyResponded = localStorage.getItem("responded_" + token);
-  if (alreadyResponded === "true") {
-    if (storedQr) showQR(storedQr);
-    hideResponseOptions();
-  }
 
   const bgMusic = document.getElementById("bg-music");
   function toggleMusic() {
@@ -258,5 +272,7 @@
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     countdownEl.innerText = `يتبقى ${d} يوم ${h} ساعة ${m} دقيقة`;
   }, 1000);
-</script></body>
+</script>
+
+</body>
 </html>
