@@ -12,8 +12,8 @@
       margin: 0;
       font-family: 'Tajawal', sans-serif;
       color: #fff;
-      overflow-x: hidden;
       background-color: #000;
+      overflow-x: hidden;
     }
     .page {
       display: none;
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<!-- صفحة 1 -->
+<!-- الصفحة 1 -->
 <div class="page active" id="page1" style="background-image: url('105638.png');">
   <div class="content-box">
     <h1 id="guestName">🎓 حيّاك الله!</h1>
@@ -120,7 +120,7 @@
   </div>
 </div>
 
-<!-- صفحة 2 -->
+<!-- الصفحة 2 -->
 <div class="page" id="page2" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
@@ -130,7 +130,7 @@
   </div>
 </div>
 
-<!-- صفحة 3 -->
+<!-- الصفحة 3 -->
 <div class="page" id="page3" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2>موقع القاعة</h2>
@@ -138,7 +138,7 @@
   </div>
 </div>
 
-<!-- صفحة 4 -->
+<!-- الصفحة 4 -->
 <div class="page" id="page4" style="background-image: url('105638.png');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
@@ -148,14 +148,8 @@
     </div>
     <p id="responseMsg" style="margin-top: 20px;"></p>
     <div id="qrContainer" style="margin-top: 20px;"></div>
-    <p id="qrNote" style="display: none; font-size: 14px;">📌 لا تشارك رمز الدخول. سيتم استخدامه عند الدخول.</p>
+    <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
     <button id="downloadBtn">📥 تحميل QR</button>
-
-    <div style="margin-top: 30px;">
-      <input type="text" id="qrInput" placeholder="أدخل رمز QR" style="padding:10px; border-radius:10px; width: 80%;">
-      <button onclick="verifyQR()">تحقق من الدخول</button>
-      <p id="checkinMsg" style="margin-top: 10px;"></p>
-    </div>
   </div>
 </div>
 
@@ -197,7 +191,7 @@
 
   function confirmAttendance(response) {
     responseMsg.innerText = "⏳ جاري التسجيل...";
-    fetch(`https://script.google.com/macros/s/AKfycbzNa5lAlgmL4e-EwR_xp7CkGHRiZKHEC8EaBBW24REksiBvz4HGjNj7Mh9n7BLiKOLqFA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbwADJN1heDQVMO4wRmIzXsQO-edZKtScgFMIDF17uTt0kb3hRGHxsJGVrT8ehB2shHvuQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         responseMsg.innerText = res.message;
@@ -212,8 +206,9 @@
 
   function generateQR(value) {
     qrContainer.innerHTML = "";
-    const qrcode = new QRCode(qrContainer, {
-      text: value,
+    const qrLink = `https://script.google.com/macros/s/AKfycbwADJN1heDQVMO4wRmIzXsQO-edZKtScgFMIDF17uTt0kb3hRGHxsJGVrT8ehB2shHvuQ/exec?token=${encodeURIComponent(value)}`;
+    new QRCode(qrContainer, {
+      text: qrLink,
       width: 200,
       height: 200
     });
@@ -230,17 +225,6 @@
       link.click();
     }
   };
-
-  function verifyQR() {
-    const code = document.getElementById("qrInput").value.trim();
-    const msg = document.getElementById("checkinMsg");
-
-    if (!code) return msg.innerText = "الرجاء إدخال رمز QR.";
-    fetch(`https://script.google.com/macros/s/AKfycbzNa5lAlgmL4e-EwR_xp7CkGHRiZKHEC8EaBBW24REksiBvz4HGjNj7Mh9n7BLiKOLqFA/exec?token=${code}`)
-      .then(res => res.json())
-      .then(res => msg.innerText = res.message)
-      .catch(() => msg.innerText = "❌ حدث خطأ أثناء التحقق.");
-  }
 
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T20:00:00").getTime();
