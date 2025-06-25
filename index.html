@@ -153,9 +153,7 @@
   </div>
 </div>
 
-<!-- مكتبة QRCode.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
   const nameParam = new URLSearchParams(location.search).get("name") || "";
   const token = new URLSearchParams(location.search).get("token") || "";
@@ -189,14 +187,15 @@
     try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
   }
 
+  // تأكيد الحضور
   function confirmAttendance(response) {
     responseMsg.innerText = "⏳ جاري التسجيل...";
-    fetch(`https://script.google.com/macros/s/AKfycbwADJN1heDQVMO4wRmIzXsQO-edZKtScgFMIDF17uTt0kb3hRGHxsJGVrT8ehB2shHvuQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbzsN7t0RgSseLMMX6HeQj75TXb1IMlEL-paq8E9HkA6pr30pir_bqcGHm8uiwFSPov7zQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         responseMsg.innerText = res.message;
         if (res.status === "success" || res.status === "already") {
-          generateQR(token);
+          showQR();
         }
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
@@ -204,9 +203,9 @@
       .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
   }
 
-  function generateQR(value) {
+  function showQR() {
+    const qrLink = `https://script.google.com/macros/s/AKfycbzsN7t0RgSseLMMX6HeQj75TXb1IMlEL-paq8E9HkA6pr30pir_bqcGHm8uiwFSPov7zQ/exec?token=${encodeURIComponent(token)}`;
     qrContainer.innerHTML = "";
-    const qrLink = `https://script.google.com/macros/s/AKfycbwADJN1heDQVMO4wRmIzXsQO-edZKtScgFMIDF17uTt0kb3hRGHxsJGVrT8ehB2shHvuQ/exec?token=${encodeURIComponent(value)}`;
     new QRCode(qrContainer, {
       text: qrLink,
       width: 200,
@@ -226,6 +225,21 @@
     }
   };
 
+  // إذا كان الضيف قد سجل مسبقًا، أظهر الباركود تلقائيًا
+  window.addEventListener("load", () => {
+    fetch(`https://script.google.com/macros/s/AKfycbzsN7t0RgSseLMMX6HeQj75TXb1IMlEL-paq8E9HkA6pr30pir_bqcGHm8uiwFSPov7zQ/exec?token=${token}`)
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === "already" || res.status === "success" || res.status === "checked") {
+          responseButtons.style.display = "none";
+          attendanceTitle.style.display = "none";
+          responseMsg.innerText = res.message || "تم تسجيل الرد.";
+          showQR();
+        }
+      });
+  });
+
+  // عد تنازلي
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T20:00:00").getTime();
   setInterval(() => {
@@ -235,8 +249,9 @@
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    countdownEl.innerText = `يتبقى ${d} يوم ${h} ساعة ${m} دقيقة`;
+    countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
   }, 1000);
 </script>
 </body>
 </html>
+
