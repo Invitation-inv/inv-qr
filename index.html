@@ -77,7 +77,7 @@
     #intro {
       position: fixed;
       inset: 0;
-      background: url('105930.jpg') center/cover no-repeat;
+      background: url('106631.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -113,28 +113,35 @@
 </div>
 
 <!-- الصفحة 1 -->
-<div class="page active" id="page1" style="background-image: url('105638.png');">
+<div class="page active" id="page1" style="background-image: url('106635.jpg');">
   <div class="content-box">
-    <h1 id="guestName">🎓 حيّاك الله!</h1>
-    <p>يسعدني ويشرفني دعوتكم لحضور حفل تخرج ابنتي "مدى"</p>
+    <h1 id="guestName">حيّاك الله!</h1>
+    <h2>"دعوة خاصة"</h2>
+    <h3>"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
+    <p>"بقلوب تنبض بالحب وتغمرها السعادة"</p>
+    <p>"ادعوكم لحضور"</p>
+    <h4>"حفل زفاف ابنتي"</h4>
+    <p>"اللهم ارزقنا التمام الجميل والعقد المتين"</p>
+
+    
   </div>
 </div>
 
 <!-- الصفحة 2 -->
-<div class="page" id="page2" style="background-image: url('105638.png');">
+<div class="page" id="page2" style="background-image: url('106635.jpg');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
-    <p>📍 قاعة الرفال - الرياض</p>
-    <p>🕒 السبت 5 يوليو 2025 - الساعة 8 مساءً</p>
+    <p>📍 قاعة صدر المنصة - الرياض</p>
+    <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
     <div id="countdown"></div>
   </div>
 </div>
 
 <!-- الصفحة 3 -->
-<div class="page" id="page3" style="background-image: url('105638.png');">
+<div class="page" id="page3" style="background-image: url('106635.jpg');">
   <div class="content-box">
     <h2>موقع القاعة</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300" style="border:0;" allowfullscreen></iframe>
+    <iframe src="https://maps.app.goo.gl/gt88nu6qyMUZ1mHw9" width="100%" height="300" style="border:0;" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -245,7 +252,7 @@
   setInterval(() => {
     const now = new Date().getTime();
     const diff = eventDate - now;
-    if (diff < 0) return countdownEl.innerText = "🎉 بدأ الحفل!";
+    if (diff < 0) return countdownEl.innerText = "بدا الزفاف";
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
