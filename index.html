@@ -190,7 +190,7 @@
   // تأكيد الحضور
   function confirmAttendance(response) {
     responseMsg.innerText = "⏳ جاري التسجيل...";
-    fetch(`https://script.google.com/macros/s/AKfycbyO6cRfRyr2GWqFW78A_EnGn6fAZMFTjCSb2kW5D9pq-8zJQDH0IydtAy-LUHM8RbxvtQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxo6Vn17F7vr3EqhDySXqBahgdEOLCkC2_CyoeL2eQPEtT1GSt1oy60h7ZNanF_VnVNgw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
         responseMsg.innerText = res.message;
@@ -204,7 +204,7 @@
   }
 
   function showQR() {
-    const qrLink = `https://script.google.com/macros/s/AKfycbyO6cRfRyr2GWqFW78A_EnGn6fAZMFTjCSb2kW5D9pq-8zJQDH0IydtAy-LUHM8RbxvtQ/exec?token=${encodeURIComponent(token)}`;
+    const qrLink = `https://script.google.com/macros/s/AKfycbxo6Vn17F7vr3EqhDySXqBahgdEOLCkC2_CyoeL2eQPEtT1GSt1oy60h7ZNanF_VnVNgw/exec?token=${encodeURIComponent(token)}`;
     qrContainer.innerHTML = "";
     new QRCode(qrContainer, {
       text: qrLink,
@@ -227,7 +227,7 @@
 
   // إذا كان الضيف قد سجل مسبقًا، أظهر الباركود تلقائيًا
   window.addEventListener("load", () => {
-    fetch(`https://script.google.com/macros/s/AKfycbyO6cRfRyr2GWqFW78A_EnGn6fAZMFTjCSb2kW5D9pq-8zJQDH0IydtAy-LUHM8RbxvtQ/exec?token=${token}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxo6Vn17F7vr3EqhDySXqBahgdEOLCkC2_CyoeL2eQPEtT1GSt1oy60h7ZNanF_VnVNgw/exec?token=${token}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === "already" || res.status === "success" || res.status === "checked") {
