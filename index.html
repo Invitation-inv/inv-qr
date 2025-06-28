@@ -2,14 +2,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دعوة حفل زفاف</title>
+  <title>دعوة زفاف</title>
+  <link rel="preload" as="image" href="105638.png">
+  <link rel="preload" as="image" href="106631.jpg">
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Tajawal', sans-serif;
-      background-color: #000;
       color: #fff;
+      background-color: #000;
       overflow-x: hidden;
     }
     .page {
@@ -20,42 +22,16 @@
       background-size: cover;
       background-position: center;
     }
-    .page.active {
-      display: block;
-      animation: fadeIn 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0 }
-      to { opacity: 1 }
-    }
-    .fade-text {
-      opacity: 0;
-      animation: fadeInUp 2s forwards;
-    }
-    .fade-text:nth-child(1) { animation-delay: 0.3s; }
-    .fade-text:nth-child(2) { animation-delay: 0.6s; }
-    .fade-text:nth-child(3) { animation-delay: 0.9s; }
-    .fade-text:nth-child(4) { animation-delay: 1.2s; }
-    .fade-text:nth-child(5) { animation-delay: 1.5s; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #intro {
-      position: fixed;
-      inset: 0;
-      background: url('106641.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: transform 1s ease, opacity 1s ease;
-    }
-    #intro.close {
-      transform: scale(0.7);
-      opacity: 0;
-      pointer-events: none;
+    .page.active { display: block; animation: fadeIn 1s ease; }
+    @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
+    .content-box {
+      background: rgba(0,0,0,0.5);
+      padding: 30px;
+      border-radius: 20px;
+      display: inline-block;
+      max-width: 90%;
+      margin: auto;
+      animation: fadeIn 2s ease;
     }
     .music-btn {
       position: fixed;
@@ -68,6 +44,51 @@
       border-radius: 8px;
       font-size: 20px;
     }
+    .butterfly {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('butterfly.png');
+      background-size: cover;
+      pointer-events: none;
+      z-index: 10;
+      animation: flutter 12s infinite ease-in-out;
+    }
+    @keyframes flutter {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(20px, -50px) rotate(10deg); }
+      50% { transform: translate(-30px, -100px) rotate(-10deg); }
+      75% { transform: translate(40px, -150px) rotate(5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: url('106631.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      color: white;
+      text-align: center;
+    }
+    #intro.close { opacity: 0; pointer-events: none; transition: all 1s ease; }
+    #nav-arrows {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    #nav-arrows div {
+      pointer-events: all;
+      cursor: pointer;
+      text-align: center;
+      width: 70px;
+    }
     button {
       padding: 16px 28px;
       font-size: 20px;
@@ -78,110 +99,117 @@
       background: rgba(255,255,255,0.9);
       color: #111;
     }
-    .butterfly {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-image: url('106646.png');
-      background-size: cover;
-      animation: float 10s infinite linear;
-      pointer-events: none;
-      z-index: 10;
-    }
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); opacity: 0.8; }
-      50% { transform: translateY(-100px) translateX(50px); }
-      100% { transform: translateY(0) translateX(0); opacity: 0.8; }
+    #downloadBtn {
+      display: none;
+      background: #4CAF50;
+      color: white;
     }
   </style>
 </head>
 <body>
 <div id="intro">
+  <div class="butterfly" style="top: 85%; left: 30%;"></div>
+  <div class="butterfly" style="top: 90%; left: 70%;"></div>
   <button onclick="startExperience()">ابدأ</button>
 </div>
-<div class="butterfly" style="top: 80%; left: 10%; animation-delay: 0s;"></div>
-<div class="butterfly" style="top: 85%; left: 50%; animation-delay: 2s;"></div>
-<div class="butterfly" style="top: 90%; left: 80%; animation-delay: 4s;"></div>
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
-<audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio><!-- الصفحة 1: الترحيب --><div class="page active" id="page1" style="background-image: url('106642.jpg');">
-  <h1 class="fade-text" id="guestName">حيّاك الله!</h1>
-  <h2 class="fade-text">"دعوة خاصة"</h2>
-  <h3 class="fade-text">"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
-  <p class="fade-text">بقلوب تنبض بالحب وتغمرها السعادة</p>
-  <p class="fade-text">ندعوكم لحضور حفل زفاف ابنتي</p>
-  <div class="fade-text"><button onclick="goToPage(2)">التالي ➡</button></div>
-</div><!-- الصفحة 2: التفاصيل والموقع --><div class="page" id="page2" style="background-image: url('106642.jpg');">
-  <p class="fade-text">📍 قاعة صدر المنصة - الرياض</p>
-  <p class="fade-text">🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
-  <div id="countdown" class="fade-text" style="margin-top: 20px;"></div>
-  <iframe class="fade-text" src="https://maps.app.goo.gl/gt88nu6qyMUZ1mHw9" width="90%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
-  <div class="fade-text" style="margin-top: 40px;"><button onclick="goToPage(3)">التالي ➡</button></div>
-</div><!-- الصفحة 3: التأكيد --><div class="page" id="page3" style="background-image: url('106642.jpg'); text-align: center;">
-  <h2 id="attendanceTitle">هل ستحضر؟</h2>
-  <div id="responseButtons">
-    <button onclick="confirmAttendance('yes')">✅ نعم</button>
-    <button onclick="confirmAttendance('no')">❌ لا</button>
+<audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio><div id="nav-arrows">
+  <div onclick="goToPage(currentPage + 1)">➡<div>التالي</div></div>
+  <div onclick="goToPage(currentPage - 1)">⬅<div>السابق</div></div>
+</div><!-- صفحة الترحيب --><div class="page active" id="page1" style="background-image: url('106635.jpg');">
+  <div class="content-box">
+    <h1 id="guestName">🎉 حيّاك الله!</h1>
+    <h2>دعوة لحفل زفاف</h2>
+    <p>اللهم اجعله يوماً مميزًا يجمع الأحبة في فرحة واحدة</p>
   </div>
-  <p id="responseMsg" style="margin-top: 20px;"></p>
-  <div id="qrContainer" style="margin-top: 20px;"></div>
-  <p id="qrNote" style="display: none;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
-  <button id="downloadBtn">📥 تحميل QR</button>
+</div><!-- صفحة التفاصيل --><div class="page" id="page2" style="background-image: url('105930.jpg');">
+  <div class="content-box">
+    <h2>تفاصيل الحفل</h2>
+    <p>📍 قاعة صدر المنصة - الرياض</p>
+    <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
+    <div id="countdown"></div>
+    <iframe src="https://maps.app.goo.gl/gt88nu6qyMUZ1mHw9" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
+  </div>
+</div><!-- صفحة التأكيد --><div class="page" id="page3" style="background-image: url('105638.png');">
+  <div class="content-box">
+    <h2 id="attendanceTitle">هل ستحضر؟</h2>
+    <div id="responseButtons">
+      <button onclick="confirmAttendance('yes')">✅ نعم</button>
+      <button onclick="confirmAttendance('no')">❌ لا</button>
+    </div>
+    <p id="responseMsg" style="margin-top: 20px;"></p>
+    <div id="qrContainer" style="margin-top: 20px;"></div>
+    <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
+    <p id="inviteCountMsg" style="display:none;"></p>
+    <button id="downloadBtn">📥 تحميل QR</button>
+  </div>
 </div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-  const nameParam = new URLSearchParams(location.search).get("name") || "";
+  const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
   const token = new URLSearchParams(location.search).get("token") || "";
-  document.getElementById("guestName").innerText = `🎓 حيّاك ${nameParam || "ضيفنا"}!`;
+  const guestName = document.getElementById("guestName");
+  const qrContainer = document.getElementById("qrContainer");
+  const responseButtons = document.getElementById("responseButtons");
+  const attendanceTitle = document.getElementById("attendanceTitle");
+  const responseMsg = document.getElementById("responseMsg");
+  const qrNote = document.getElementById("qrNote");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const inviteCountMsg = document.getElementById("inviteCountMsg");
+
+  guestName.innerText = `🎉 حيّاك ${nameParam}!`;
 
   let currentPage = 1;
+  const pages = document.querySelectorAll('.page');
   function goToPage(num) {
-    const pages = document.querySelectorAll('.page');
     if (num < 1 || num > pages.length) return;
     pages.forEach(p => p.classList.remove('active'));
     document.getElementById('page' + num).classList.add('active');
     currentPage = num;
+    try { bgMusic.play(); } catch {}
   }
 
   function startExperience() {
     document.getElementById("intro").classList.add("close");
     setTimeout(() => document.getElementById("intro").style.display = "none", 1000);
-    try { document.getElementById("bg-music").play(); } catch {}
+    try { bgMusic.play(); } catch {}
   }
 
   function toggleMusic() {
-    const music = document.getElementById("bg-music");
-    music.paused ? music.play() : music.pause();
+    try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
   }
 
   function confirmAttendance(response) {
-    const msg = document.getElementById("responseMsg");
-    msg.innerText = "⏳ جاري التسجيل...";
-    fetch(`https://script.google.com/macros/s/AKfycbxo6Vn17F7vr3EqhDySXqBahgdEOLCkC2_CyoeL2eQPEtT1GSt1oy60h7ZNanF_VnVNgw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    responseMsg.innerText = "⏳ جاري التسجيل...";
+    fetch(`https://script.google.com/macros/s/AKfycbwB2oqYLlQPh08KrVDVUQxMrFBmXokiHW4_8_GxSlb8-PJXt7kg6oga0kJ0R1LtPF2d2g/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
       .then(res => res.json())
       .then(res => {
-        msg.innerText = res.message;
+        responseMsg.innerText = res.message;
         if (res.status === "success" || res.status === "already") {
-          showQR();
+          showQR(res.maxOpens);
         }
-        document.getElementById("responseButtons").style.display = "none";
-        document.getElementById("attendanceTitle").style.display = "none";
+        responseButtons.style.display = "none";
+        attendanceTitle.style.display = "none";
       })
-      .catch(() => msg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
+      .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
   }
 
-  function showQR() {
-    const qrLink = `https://script.google.com/macros/s/AKfycbxo6Vn17F7vr3EqhDySXqBahgdEOLCkC2_CyoeL2eQPEtT1GSt1oy60h7ZNanF_VnVNgw/exec?token=${encodeURIComponent(token)}`;
-    const qrContainer = document.getElementById("qrContainer");
+  function showQR(maxOpens) {
+    const qrLink = `https://script.google.com/macros/s/AKfycbwB2oqYLlQPh08KrVDVUQxMrFBmXokiHW4_8_GxSlb8-PJXt7kg6oga0kJ0R1LtPF2d2g/exec?token=${encodeURIComponent(token)}`;
     qrContainer.innerHTML = "";
     new QRCode(qrContainer, {
       text: qrLink,
       width: 200,
       height: 200
     });
-    document.getElementById("qrNote").style.display = "block";
-    document.getElementById("downloadBtn").style.display = "inline-block";
+    qrNote.style.display = "block";
+    downloadBtn.style.display = "inline-block";
+    if (maxOpens) {
+      inviteCountMsg.style.display = "block";
+      inviteCountMsg.innerText = `🔢 لديك ${maxOpens} دعوة`;
+    }
   }
 
   downloadBtn.onclick = () => {
-    const img = document.querySelector("#qrContainer img");
+    const img = qrContainer.querySelector("img");
     if (img) {
       const link = document.createElement("a");
       link.href = img.src;
@@ -190,12 +218,13 @@
     }
   };
 
+  // بدء العد التنازلي
   const countdownEl = document.getElementById("countdown");
   const eventDate = new Date("2025-07-05T21:00:00").getTime();
   setInterval(() => {
     const now = new Date().getTime();
     const diff = eventDate - now;
-    if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف!";
+    if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف";
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
