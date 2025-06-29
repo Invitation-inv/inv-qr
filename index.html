@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل زفاف</title>
-  <link rel="preload" as="image" href="butterfly.png">
   <style>
     * { box-sizing: border-box; }
     body {
@@ -23,217 +21,180 @@
       background-position: center;
       position: relative;
     }
-    .page.active { display: block; animation: fadeIn 1s ease; }
+    .page.active { display: block; animation: fadeIn 1s ease; }@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+.content-box {
+  background: rgba(0,0,0,0.5);
+  padding: 30px;
+  border-radius: 20px;
+  display: inline-block;
+  max-width: 90%;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
 
-    .content-box {
-      background: rgba(0,0,0,0.5);
-      padding: 30px;
-      border-radius: 20px;
-      display: inline-block;
-      max-width: 90%;
-      margin: auto;
-    }
+.music-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 20px;
+}
 
-    .music-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 999;
-      background: rgba(0,0,0,0.4);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 20px;
-    }
+#nav-arrows {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 1000;
+}
 
-    #nav-arrows {
-      position: fixed;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-      z-index: 1000;
-    }
+#nav-arrows div {
+  pointer-events: all;
+  cursor: pointer;
+  text-align: center;
+  width: 70px;
+}
 
-    #nav-arrows div {
-      pointer-events: all;
-      cursor: pointer;
-      text-align: center;
-      width: 70px;
-    }
+button {
+  padding: 16px 28px;
+  font-size: 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 10px;
+  background: rgba(255,255,255,0.9);
+  color: #111;
+}
 
-    button {
-      padding: 16px 28px;
-      font-size: 20px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 10px;
-      background: rgba(255,255,255,0.9);
-      color: #111;
-    }
+#downloadBtn {
+  display: none;
+  background: #4CAF50;
+  color: white;
+}
 
-    #downloadBtn {
-      display: none;
-      background: #4CAF50;
-      color: white;
-    }
+#intro {
+  position: fixed;
+  inset: 0;
+  background: url('106641.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: white;
+  text-align: center;
+}
 
-    #intro {
-      position: fixed;
-      inset: 0;
-      background: url('106641.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      color: white;
-      text-align: center;
-    }
+#intro.close {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+}
 
-    #intro.close {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 2s ease;
-    }
+.butterfly {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url('106646.png');
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+  animation: flutter 6s infinite ease-in-out;
+}
 
-    .butterfly {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-image: url('106646.png');
-      background-size: cover;
-      pointer-events: none;
-      z-index: 10;
-      transition: transform 3s ease-in-out, opacity 2s ease-in-out;
-    }
+@keyframes flutter {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
 
-    .fly {
-      animation: flyAway 5s forwards;
-    }
-
-    @keyframes flyAway {
-      0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-      100% { transform: translate(0px, -400px) rotate(720deg); opacity: 0; }
-    }
   </style>
 </head>
-<body>
-
-<div id="intro">
+<body><div id="intro">
   <button onclick="startExperience()">ابدأ</button>
   <div class="butterfly" style="top: 80%; left: 10%;"></div>
   <div class="butterfly" style="top: 85%; left: 50%;"></div>
   <div class="butterfly" style="top: 90%; left: 80%;"></div>
-</div>
-
-<button class="music-btn" onclick="toggleMusic()">🎵</button>
-<audio id="bg-music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
 
 <div id="nav-arrows">
   <div onclick="goToPage(currentPage + 1)">➡<div>التالي</div></div>
   <div onclick="goToPage(currentPage - 1)">⬅<div>السابق</div></div>
-</div>
-
-<!-- صفحة 1 -->
-<div class="page" id="page1" style="background-image: url('106642.jpg');">
+</div><!-- صفحات الدعوة --><div class="page" id="page1" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
     <h2>دعوة خاصة</h2>
-    <h3>"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
-    <p>بقلوب تنبض بالحب وتغمرها السعادة</p>
-    <p>ندعوكم لحضور</p>
-    <h4>حفل زفاف ابنتي</h4>
-    <p>اللهم ارزقنا التمام الجميل والعقد المتين</p>
+    <p>ندعوكم لحضور زفاف ابنتنا</p>
   </div>
-</div>
-
-<!-- صفحة 2 -->
-<div class="page" id="page2" style="background-image: url('106643.jpg');">
+</div><div class="page" id="page2" style="background-image: url('106643.jpg');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
     <p>📍 قاعة صدر المنصة - الرياض</p>
     <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
     <div id="countdown"></div>
-    <iframe src="https://maps.app.goo.gl/gt88nu6qyMUZ1mHw9" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
   </div>
-</div>
-
-<!-- صفحة 3 -->
-<div class="page" id="page3" style="background-image: url('106642.jpg');">
+</div><div class="page" id="page3" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
     <div id="responseButtons">
       <button onclick="confirmAttendance('yes')">✅ نعم</button>
       <button onclick="confirmAttendance('no')">❌ لا</button>
     </div>
-    <p id="responseMsg" style="margin-top: 20px;"></p>
+    <p id="responseMsg"></p>
     <div id="qrContainer" style="margin-top: 20px;"></div>
     <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
     <p id="invitationCount" style="font-size: 14px; display: none;"></p>
     <button id="downloadBtn">📥 تحميل QR</button>
   </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+</div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
 const token = new URLSearchParams(location.search).get("token") || "";
-const guestName = document.getElementById("guestName");
-const qrContainer = document.getElementById("qrContainer");
-const responseButtons = document.getElementById("responseButtons");
-const attendanceTitle = document.getElementById("attendanceTitle");
-const responseMsg = document.getElementById("responseMsg");
-const qrNote = document.getElementById("qrNote");
-const downloadBtn = document.getElementById("downloadBtn");
-const invitationCount = document.getElementById("invitationCount");
+const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
 let currentPage = 0;
 const pages = document.querySelectorAll('.page');
-const butterflies = document.querySelectorAll('.butterfly');
+const guestName = document.getElementById("guestName");
+const qrContainer = document.getElementById("qrContainer");
+const qrNote = document.getElementById("qrNote");
+const invitationCount = document.getElementById("invitationCount");
+const downloadBtn = document.getElementById("downloadBtn");
 
-function goToPage(num) {
-  if (num < 0 || num >= pages.length) return;
+function goToPage(n) {
+  if (n < 0 || n >= pages.length) return;
   pages.forEach(p => p.classList.remove('active'));
-  pages[num].classList.add('active');
-  currentPage = num;
-  try { bgMusic.play(); } catch {}
+  pages[n].classList.add('active');
+  currentPage = n;
 }
 
 function startExperience() {
-  const intro = document.getElementById("intro");
-  const bgMusic = document.getElementById("bg-music");
-
-  if (bgMusic && bgMusic.paused) {
-    bgMusic.play().catch(() => {});
-  }
-
-  butterflies.forEach(b => b.classList.add('fly'));
-
-  intro.classList.add("close");
+  document.getElementById("intro").classList.add("close");
   setTimeout(() => {
-    intro.style.display = "none";
+    document.getElementById("intro").style.display = "none";
     goToPage(0);
-    generateButterflies();
   }, 1500);
 }
 
 function toggleMusic() {
   const bgMusic = document.getElementById("bg-music");
-  try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
+  bgMusic.paused ? bgMusic.play() : bgMusic.pause();
 }
 
 guestName.innerText = `🎓 حيّاك ${nameParam}!`;
 
 function confirmAttendance(response) {
+  const responseMsg = document.getElementById("responseMsg");
+  const responseButtons = document.getElementById("responseButtons");
+  const attendanceTitle = document.getElementById("attendanceTitle");
+
   responseMsg.innerText = "⏳ جاري التسجيل...";
   fetch(`https://script.google.com/macros/s/AKfycbwne_Wk-0g9Fryh6DDbXbUcy2hg5iQX_MyEx6aFIBQfgC6yBD9VhWeFsP5zntEQL2Lneg/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
@@ -270,44 +231,5 @@ downloadBtn.onclick = () => {
     link.click();
   }
 };
-
-function generateButterflies() {
-  pages.forEach(page => {
-    for (let i = 0; i < 5; i++) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      b.style.top = Math.random() * 90 + '%';
-      b.style.left = Math.random() * 90 + '%';
-      page.appendChild(b);
-      animateButterfly(b);
-    }
-  });
-}
-
-function animateButterfly(b) {
-  let posY = parseFloat(b.style.top);
-  if (isNaN(posY)) posY = 50;
-  let direction = -1;
-
-  setInterval(() => {
-    posY += direction * (Math.random() * 1.5);
-    if (posY < 5 || posY > 90) direction *= -1;
-    b.style.top = posY + "%";
-    b.style.transform = `rotate(${Math.random() * 360}deg)`;
-  }, 100);
-}
-
-const countdownEl = document.getElementById("countdown");
-const eventDate = new Date("2025-07-05T21:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = eventDate - now;
-  if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف!";
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
-}, 1000);
-</script>
-</body>
+</script></body>
 </html>
