@@ -248,13 +248,18 @@ function generateButterflies() {
 }
 
 function animateButterfly(b) {
-  let angle = 0;
+  let posY = parseFloat(b.style.top);
+  if (isNaN(posY)) posY = 50;
+  let direction = -1;
+
   setInterval(() => {
-    angle += 30;
-    const x = Math.sin(angle * Math.PI / 180) * 20;
-    const y = Math.cos(angle * Math.PI / 180) * 20;
-    b.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
-  }, 1000);
+    posY += direction * (Math.random() * 1.5);
+    if (posY < 5 || posY > 90) direction *= -1;
+    b.style.top = posY + "%";
+    b.style.transform = `rotate(${Math.random() * 360}deg)`;
+  }, 100);
+}
+
 }
 
 const countdownEl = document.getElementById("countdown");
