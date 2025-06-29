@@ -223,7 +223,7 @@ function toggleMusic() {
 
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbwBfMARzD5_RItLgcIAWK7xoor8ZTkgmwbYvvNGNyYZSWBHqiThbdDOnwKMMpq0IuyPVA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+  fetch(`https://script.google.com/macros/s/AKfycbzqIQl6ahgwDSXri0c1vkCiXENsUUe646lPv45e7FUcw_TopSks8EWw0kCebNxdQuuqwQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseMsg.innerText = res.message;
@@ -280,7 +280,7 @@ setInterval(() => {
 }, 1000);
 
 window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://script.google.com/macros/s/AKfycbwBfMARzD5_RItLgcIAWK7xoor8ZTkgmwbYvvNGNyYZSWBHqiThbdDOnwKMMpq0IuyPVA/exec?token=${token}&check=true`)
+  fetch(`https://script.google.com/macros/s/AKfycbzqIQl6ahgwDSXri0c1vkCiXENsUUe646lPv45e7FUcw_TopSks8EWw0kCebNxdQuuqwQ/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
       if (res.status === "already") {
