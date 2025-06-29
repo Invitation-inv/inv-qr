@@ -1,188 +1,163 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل زفاف</title>
-  <link rel="preload" as="image" href="butterfly.png">
   <style>
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Tajawal', sans-serif;
+      background: #000;
       color: #fff;
-      background-color: #000;
       overflow-x: hidden;
     }
     .page {
       display: none;
       min-height: 100vh;
-      padding: 60px 20px;
-      text-align: center;
       background-size: cover;
       background-position: center;
+      padding: 60px 20px;
+      text-align: center;
       position: relative;
     }
     .page.active { display: block; animation: fadeIn 1s ease; }
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; } to { opacity: 1; }
     }
     .content-box {
       background: rgba(0,0,0,0.5);
       padding: 30px;
       border-radius: 20px;
-      display: inline-block;
       max-width: 90%;
       margin: auto;
       position: relative;
       z-index: 20;
     }
-    #nav-arrows {
-      position: fixed;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-      z-index: 1000;
-      font-size: 28px;
-      padding: 0 10px;
-      color: #ccc;
-    }
-    #nav-arrows div {
-      pointer-events: all;
-      cursor: pointer;
-      background: none;
-      color: #888;
-      font-size: 26px;
-    }
-    @media (max-width: 600px) {
-      h1, h2, h3, h4 { font-size: 18px; }
-      button { font-size: 16px; padding: 10px 18px; }
-      .content-box { padding: 20px; }
-      #nav-arrows { font-size: 20px; }
-      #nav-arrows div { font-size: 20px; }
-    }
     button {
       padding: 14px 24px;
       font-size: 18px;
-      border: none;
       border-radius: 10px;
+      border: none;
       cursor: pointer;
       margin: 10px;
       background: rgba(255,255,255,0.9);
       color: #111;
     }
-    #intro {
-      position: fixed;
-      inset: 0;
-      background: url('106641.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      color: white;
-      text-align: center;
-    }
-    #intro.close {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 2s ease;
-    }
-    .butterfly {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-image: url('butterfly.png');
-      background-size: cover;
-      pointer-events: none;
-      z-index: 5;
-      animation: floatUp 16s linear infinite;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
-    }
+    #downloadBtn { display: none; background: #4CAF50; color: #fff; }
   </style>
 </head>
 <body>
-<div id="intro">
-  <button onclick="startExperience()">ابدأ</button>
-</div><div id="nav-arrows">
-  <div onclick="goToPage(currentPage - 1)">◀</div>
-  <div onclick="goToPage(currentPage + 1)">▶</div>
-</div><div class="page" id="page1" style="background-image: url('106642.jpg');">
+
+<!-- صفحات -->
+<div class="page active" style="background-image:url('106642.jpg');" id="page1">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
     <h2>دعوة خاصة</h2>
-    <h3>بارك الله لهما وبارك عليهما وجمع بينهما بخير</h3>
+    <h3>"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
     <p>ندعوكم لحضور حفل زفاف ابنتي</p>
   </div>
-</div><div class="page" id="page2" style="background-image: url('106642.jpg');">
+</div>
+
+<div class="page" style="background-image:url('106642.jpg');" id="page2">
   <div class="content-box">
-    <h2>تفاصيل الحفل</h2>
+    <h2>تفاصيل الزفاف</h2>
     <p>📍 قاعة صدر المنصة - الرياض</p>
     <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
+    <div id="countdown"></div>
   </div>
-</div><div class="page" id="page3" style="background-image: url('106642.jpg');">
+</div>
+
+<div class="page" style="background-image:url('106642.jpg');" id="page3">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
     <div id="responseButtons">
-      <button onclick="confirmAttendance('yes')">نعم</button>
-      <button onclick="confirmAttendance('no')">لا</button>
+      <button onclick="confirmAttendance('yes')"> نعم بأذن الله</button>
+      <button onclick="confirmAttendance('no')"> لا اعتذر عن الحضور</button>
     </div>
     <p id="responseMsg"></p>
-    <div id="qrContainer"></div>
+    <div id="qrContainer" style="margin-top: 20px;"></div>
+    <p id="qrNote" style="display:none; font-size:14px;">استخدم رمز الدخول عند الوصول للقاعة</p>
+    <p id="invitationCount" style="display:none; font-size:14px;"></p>
+    <button id="downloadBtn">تحميل QR</button>
   </div>
-</div><script>
-const pages = document.querySelectorAll('.page');
-let currentPage = 0;
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const token = new URLSearchParams(location.search).get("token") || "";
+const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+document.getElementById("guestName").innerText = ` حيّاك ${nameParam}!`;
+
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
 function goToPage(n) {
   if (n < 0 || n >= pages.length) return;
-  pages.forEach(p => p.classList.remove('active'));
-  pages[n].classList.add('active');
+  pages.forEach(p => p.classList.remove("active"));
+  pages[n].classList.add("active");
   currentPage = n;
 }
 
-function startExperience() {
-  document.getElementById("intro").classList.add("close");
-  setTimeout(() => {
-    document.getElementById("intro").style.display = "none";
-    goToPage(0);
-    setTimeout(createButterflies, 2000);
-  }, 2000);
-}
-
-function createButterflies() {
-  pages.forEach(p => {
-    for (let i = 0; i < 2; i++) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      b.style.left = Math.random() * 100 + '%';
-      b.style.animationDelay = (Math.random() * 10) + 's';
-      p.appendChild(b);
-    }
+function showQR(link, count) {
+  const qr = new QRCode(document.getElementById("qrContainer"), {
+    text: link, width: 200, height: 200
   });
+  document.getElementById("qrNote").style.display = "block";
+  document.getElementById("invitationCount").style.display = "block";
+  document.getElementById("downloadBtn").style.display = "inline-block";
 }
 
-function confirmAttendance(resp) {
-  document.getElementById("responseMsg").innerText = "جاري الحفظ...";
-  fetch(`https://script.google.com/macros/s/AKfycbwWfDBshysk82gaqvEu5Gwb78Ztm8frBBPJGqJWIyqMsRjGjZQBipc-KC2J3LonoraiEA/exec?token=123&response=${resp}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("responseMsg").innerText = data.message;
-      if (data.status === "success") {
-        new QRCode(document.getElementById("qrContainer"), {
-          text: data.qr,
-          width: 200,
-          height: 200
-        });
+document.getElementById("downloadBtn").onclick = () => {
+  const img = document.querySelector("#qrContainer img");
+  if (img) {
+    const a = document.createElement("a");
+    a.href = img.src;
+    a.download = "qr_code.png";
+    a.click();
+  }
+};
+
+function confirmAttendance(response) {
+  document.getElementById("responseMsg").innerText = "⏳ جاري التسجيل...";
+  fetch(`https://script.google.com/macros/s/AKfycbwWfDBshysk82gaqvEu5Gwb78Ztm8frBBPJGqJWIyqMsRjGjZQBipc-KC2J3LonoraiEA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+    .then(r => r.json())
+    .then(res => {
+      document.getElementById("responseButtons").style.display = "none";
+      document.getElementById("attendanceTitle").style.display = "none";
+
+      if (res.response === "yes") {
+        document.getElementById("responseMsg").innerText = "تم تسجيل حضورك";
+        if (res.qr) showQR(res.qr, res.max);
+      } else if (res.response === "no") {
+        document.getElementById("responseMsg").innerText = " نأسف لعدم تمكنك من الحضور";
+      } else {
+        document.getElementById("responseMsg").innerText = "❌ حدث خطأ أثناء المعالجة.";
       }
+    })
+    .catch(() => {
+      document.getElementById("responseMsg").innerText = "❌ حدث خطأ في الاتصال بالخادم.";
     });
 }
-</script></body>
+
+window.addEventListener("DOMContentLoaded", () => {
+  fetch(`https://script.google.com/macros/s/AKfycbwWfDBshysk82gaqvEu5Gwb78Ztm8frBBPJGqJWIyqMsRjGjZQBipc-KC2J3LonoraiEA/exec?token=${token}&check=true`)
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === "already") {
+        document.getElementById("responseButtons").style.display = "none";
+        document.getElementById("attendanceTitle").style.display = "none";
+        if (res.response === "yes") {
+          showQR(res.qr, res.max);
+          document.getElementById("responseMsg").innerText = " تم تأكيد حضورك مسبقًا!";
+        } else if (res.response === "no") {
+          document.getElementById("responseMsg").innerText = " نأسف لعدم تمكنك من الحضور، تم حفظ ردك.";
+        }
+      }
+    })
+    .catch(() => {
+      document.getElementById("responseMsg").innerText = "❌ لم نتمكن من التحقق من حالتك.";
+    });
+});
+</script>
+</body>
 </html>
