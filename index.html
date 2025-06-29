@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل زفاف</title>
@@ -20,6 +19,7 @@
       text-align: center;
       background-size: cover;
       background-position: center;
+      position: relative;
     }
     .page.active { display: block; animation: fadeIn 1s ease; }
     @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }.content-box {
@@ -91,7 +91,7 @@ button {
 #intro.close {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1s ease;
+  transition: opacity 2s ease;
 }
 
 .butterfly {
@@ -102,11 +102,14 @@ button {
   background-size: cover;
   pointer-events: none;
   z-index: 10;
-  transition: transform 2s ease, opacity 1.5s ease;
+  transition: transform 3s ease-in-out, opacity 2s ease-in-out;
 }
 .fly {
-  transform: translateY(-300px) translateX(200px) rotate(360deg);
-  opacity: 0;
+  animation: flyAway 5s forwards;
+}
+@keyframes flyAway {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(200px, -300px) rotate(720deg); opacity: 0; }
 }
 
   </style>
@@ -117,12 +120,12 @@ button {
   <div class="butterfly" style="top: 80%; left: 10%;"></div>
   <div class="butterfly" style="top: 85%; left: 50%;"></div>
   <div class="butterfly" style="top: 90%; left: 80%;"></div>
-</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
+</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <div id="nav-arrows">
   <div onclick="goToPage(currentPage + 1)">➡<div>التالي</div></div>
   <div onclick="goToPage(currentPage - 1)">⬅<div>السابق</div></div>
-</div><!-- صفحة 1: تفاصيل الحفل --><div class="page" id="page1" style="background-image: url('106642.jpg');">
+</div><!-- صفحة 1: الترحيب --><div class="page" id="page1" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
     <h2>دعوة خاصة</h2>
@@ -131,14 +134,16 @@ button {
     <p>ندعوكم لحضور</p>
     <h4>حفل زفاف ابنتي</h4>
     <p>اللهم ارزقنا التمام الجميل والعقد المتين</p>
-    <hr>
+  </div>
+</div><!-- صفحة 2: تفاصيل الحفل --><div class="page" id="page2" style="background-image: url('106643.jpg');">
+  <div class="content-box">
     <h2>تفاصيل الحفل</h2>
     <p>📍 قاعة صدر المنصة - الرياض</p>
     <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
     <div id="countdown"></div>
     <iframe src="https://maps.app.goo.gl/gt88nu6qyMUZ1mHw9" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
   </div>
-</div><!-- صفحة 2: تأكيد الحضور --><div class="page" id="page2" style="background-image: url('106642.jpg');">
+</div><!-- صفحة 3: تأكيد الحضور --><div class="page" id="page3" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
     <div id="responseButtons">
@@ -152,7 +157,7 @@ button {
     <button id="downloadBtn">📥 تحميل QR</button>
   </div>
 </div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-const nameParam = new URLSearchParams(location.search).get("name") || "";
+const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
 const token = new URLSearchParams(location.search).get("token") || "";
 const guestName = document.getElementById("guestName");
 const qrContainer = document.getElementById("qrContainer");
@@ -180,8 +185,8 @@ function startExperience() {
   setTimeout(() => {
     document.getElementById("intro").style.display = "none";
     goToPage(0);
-  }, 1200);
-  try { bgMusic.play(); } catch {}
+    generateButterflies();
+  }, 1500);
 }
 
 function toggleMusic() {
@@ -189,11 +194,11 @@ function toggleMusic() {
   try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
 }
 
-document.getElementById("guestName").innerText = `🎓 حيّاك ${nameParam || "ضيفنا"}!`;
+document.getElementById("guestName").innerText = `🎓 حيّاك ${nameParam}!`;
 
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbzJJs6tc-b01j04atVuhuVVUzm2iyPiDLf467asxfW24nzFhnBtbcGmIOsbTw7-oBJkrw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+  fetch(`https://script.google.com/macros/s/AKfycbzfc8IRtnWJkuWdz4AMhk0Pe9MUQoJnG5qwi71MQyGlQvK_Go0XoExMBAOjelBxGDkfOw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseMsg.innerText = res.message;
@@ -229,18 +234,28 @@ downloadBtn.onclick = () => {
   }
 };
 
-window.addEventListener("load", () => {
-  fetch(`https://script.google.com/macros/s/AKfycbzJJs6tc-b01j04atVuhuVVUzm2iyPiDLf467asxfW24nzFhnBtbcGmIOsbTw7-oBJkrw/exec?token=${token}`)
-    .then(res => res.json())
-    .then(res => {
-      if (res.status === "already" || res.status === "success" || res.status === "checked") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message || "تم تسجيل الرد.";
-        showQR(res.qrLink, res.remaining);
-      }
-    });
-});
+function generateButterflies() {
+  pages.forEach(page => {
+    for (let i = 0; i < 5; i++) {
+      const b = document.createElement('div');
+      b.className = 'butterfly';
+      b.style.top = Math.random() * 90 + '%';
+      b.style.left = Math.random() * 90 + '%';
+      page.appendChild(b);
+      animateButterfly(b);
+    }
+  });
+}
+
+function animateButterfly(b) {
+  let angle = 0;
+  setInterval(() => {
+    angle += 30;
+    const x = Math.sin(angle * Math.PI / 180) * 20;
+    const y = Math.cos(angle * Math.PI / 180) * 20;
+    b.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
+  }, 1000);
+}
 
 const countdownEl = document.getElementById("countdown");
 const eventDate = new Date("2025-07-05T21:00:00").getTime();
