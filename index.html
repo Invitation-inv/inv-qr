@@ -235,7 +235,7 @@ guestName.innerText = `🎓 حيّاك ${nameParam}!`;
 
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbzfc8IRtnWJkuWdz4AMhk0Pe9MUQoJnG5qwi71MQyGlQvK_Go0XoExMBAOjelBxGDkfOw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+  fetch(`https://script.google.com/macros/s/AKfycbwne_Wk-0g9Fryh6DDbXbUcy2hg5iQX_MyEx6aFIBQfgC6yBD9VhWeFsP5zntEQL2Lneg/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseMsg.innerText = res.message;
