@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,13 +56,12 @@
       justify-content: space-between;
       pointer-events: none;
       z-index: 1000;
-      font-size: 18px;
+      font-size: 20px;
     }
     #nav-arrows div {
       pointer-events: all;
       cursor: pointer;
-      width: auto;
-      max-width: 40%;
+      width: 120px;
       padding: 10px;
       background: rgba(0,0,0,0.5);
       border-radius: 10px;
@@ -119,22 +117,17 @@
   </style>
 </head>
 <body>
-
 <div id="intro">
   <button onclick="startExperience()">ابدأ</button>
 </div>
-
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 <audio id="bg-music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-
 <div id="nav-arrows">
-  <div id="prevPageBtn" onclick="goToPage(currentPage - 1)">⬅ الصفحة السابقة</div>
-  <div id="nextPageBtn" onclick="goToPage(currentPage + 1)">➡ الصفحة التالية</div>
+  <div onclick="goToPage(currentPage + 1)">➡ صفحة التفاصيل</div>
+  <div onclick="goToPage(currentPage - 1)">⬅ صفحة الترحيب</div>
 </div>
-
-<!-- صفحة 1 -->
 <div class="page" id="page1" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
@@ -146,8 +139,6 @@
     <p>اللهم ارزقنا التمام الجميل والعقد المتين</p>
   </div>
 </div>
-
-<!-- صفحة 2 -->
 <div class="page" id="page2" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
@@ -157,8 +148,6 @@
     <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
   </div>
 </div>
-
-<!-- صفحة 3 -->
 <div class="page" id="page3" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
@@ -173,7 +162,6 @@
     <button id="downloadBtn">📥 تحميل QR</button>
   </div>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
@@ -186,109 +174,24 @@ const responseMsg = document.getElementById("responseMsg");
 const qrNote = document.getElementById("qrNote");
 const downloadBtn = document.getElementById("downloadBtn");
 const invitationCount = document.getElementById("invitationCount");
-
 let currentPage = 0;
-const pages = document.querySelectorAll('.page');
-const navTitles = ["صفحة الترحيب", "صفحة التفاصيل", "صفحة تأكيد الحضور"];
-const prevPageBtn = document.getElementById("prevPageBtn");
-const nextPageBtn = document.getElementById("nextPageBtn");
+const pages = document.querySelectorAll('.page');guestName.innerText = 🎓 حيّاك ${nameParam}!;
 
-function goToPage(num) {
-  if (num < 0 || num >= pages.length) return;
-  pages.forEach(p => p.classList.remove('active'));
-  pages[num].classList.add('active');
-  currentPage = num;
+function goToPage(num) { if (num < 0 || num >= pages.length) return; pages.forEach(p => p.classList.remove('active')); pages[num].classList.add('active'); try { document.getElementById("bg-music").play(); } catch {} }
 
-  // تحديث أسماء الصفحات
-  prevPageBtn.innerText = currentPage > 0 ? `⬅ ${navTitles[currentPage - 1]}` : "";
-  nextPageBtn.innerText = currentPage < navTitles.length - 1 ? `➡ ${navTitles[currentPage + 1]}` : "";
+function startExperience() { document.getElementById("intro").classList.add("close"); setTimeout(() => { document.getElementById("intro").style.display = "none"; goToPage(0); createFlyingButterflies(); const bgMusic = document.getElementById("bg-music"); if (bgMusic && bgMusic.paused) { bgMusic.play().catch(() => {}); } }, 2000); }
 
-  try { bgMusic.play(); } catch {}
-}
+function toggleMusic() { const bgMusic = document.getElementById("bg-music"); try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {} }
 
-function startExperience() {
-  const intro = document.getElementById("intro");
-  const bgMusic = document.getElementById("bg-music");
-  if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => {});
-  intro.classList.add("close");
-  setTimeout(() => {
-    intro.style.display = "none";
-    goToPage(0);
-    createFlyingButterflies();
-  }, 2000);
-}
+function confirmAttendance(response) { responseMsg.innerText = "⏳ جاري التسجيل..."; fetch(https://script.google.com/macros/s/AKfycbzTz0t1_eYNTks4NXOoNNz_A9nIaG1wYInhvC8dWwjayjmzkcOvvYOUMSFhvPQcFeHBVw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}) .then(res => res.json()) .then(res => { responseMsg.innerText = res.message; if (res.status === "success" || res.status === "already") { showQR(res.qr, res.max); } if (response === 'yes') { responseButtons.style.display = "none"; attendanceTitle.style.display = "none"; } }) .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم."); }
 
-function toggleMusic() {
-  const bgMusic = document.getElementById("bg-music");
-  try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
-}
+function showQR(link, count) { qrContainer.innerHTML = ""; new QRCode(qrContainer, { text: link, width: 200, height: 200 }); qrNote.style.display = "block"; invitationCount.style.display = "block"; invitationCount.innerText = 📩 عدد الدعوات المتبقية: ${count}; downloadBtn.style.display = "inline-block"; }
 
-guestName.innerText = `🎓 حيّاك ${nameParam}!`;
+downloadBtn.onclick = () => { const img = qrContainer.querySelector("img"); if (img) { const link = document.createElement("a"); link.href = img.src; link.download = "qr_code.png"; link.click(); } };
 
-function confirmAttendance(response) {
-  responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbzTz0t1_eYNTks4NXOoNNz_A9nIaG1wYInhvC8dWwjayjmzkcOvvYOUMSFhvPQcFeHBVw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
-    .then(res => res.json())
-    .then(res => {
-      responseMsg.innerText = res.message;
-      if (res.status === "success" || res.status === "already") {
-        showQR(res.qr, res.max);
-      }
-      if (response === 'yes') {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-      }
-    })
-    .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
-}
+function createFlyingButterflies() { pages.forEach(page => { for (let i = 0; i < 5; i++) { const b = document.createElement('div'); b.className = 'butterfly'; b.style.left = Math.random() * 100 + '%'; b.style.animationDelay = (Math.random() * 5) + 's'; page.appendChild(b); } }); }
 
-function showQR(link, count) {
-  qrContainer.innerHTML = "";
-  new QRCode(qrContainer, {
-    text: link,
-    width: 200,
-    height: 200
-  });
-  qrNote.style.display = "block";
-  invitationCount.style.display = "block";
-  invitationCount.innerText = `📩 عدد الدعوات المتبقية: ${count}`;
-  downloadBtn.style.display = "inline-block";
-}
-
-downloadBtn.onclick = () => {
-  const img = qrContainer.querySelector("img");
-  if (img) {
-    const link = document.createElement("a");
-    link.href = img.src;
-    link.download = "qr_code.png";
-    link.click();
-  }
-};
-
-function createFlyingButterflies() {
-  pages.forEach(page => {
-    for (let i = 0; i < 5; i++) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      b.style.left = Math.random() * 100 + '%';
-      b.style.animationDelay = (Math.random() * 5) + 's';
-      page.appendChild(b);
-    }
-  });
-}
-
-const countdownEl = document.getElementById("countdown");
-const eventDate = new Date("2025-07-05T21:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = eventDate - now;
-  if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف!";
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
-}, 1000);
-</script>
+const countdownEl = document.getElementById("countdown"); const eventDate = new Date("2025-07-05T21:00:00").getTime(); setInterval(() => { const now = new Date().getTime(); const diff = eventDate - now; if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف!"; const d = Math.floor(diff / (1000 * 60 * 60 * 24)); const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); countdownEl.innerHTML = ⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة; }, 1000); </script>
 
 </body>
 </html>
