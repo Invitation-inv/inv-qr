@@ -57,15 +57,22 @@
       justify-content: space-between;
       pointer-events: none;
       z-index: 1000;
-      font-size: 20px;
+      font-size: 28px;
+      padding: 0 10px;
     }
     #nav-arrows div {
       pointer-events: all;
       cursor: pointer;
-      width: 120px;
-      padding: 10px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 10px;
+      background: none;
+      color: #fff;
+      font-size: 28px;
+    }
+    @media (max-width: 600px) {
+      h1, h2, h3, h4 { font-size: 18px; }
+      button { font-size: 16px; padding: 10px 18px; }
+      .content-box { padding: 20px; }
+      #nav-arrows { font-size: 20px; }
+      #nav-arrows div { font-size: 20px; }
     }
     button {
       padding: 14px 24px;
@@ -115,28 +122,24 @@
       90% { opacity: 1; }
       100% { transform: translateY(-100vh); opacity: 0; }
     }
-
-    @media (max-width: 600px) {
-      h1, h2, h3, h4 { font-size: 18px; }
-      button { font-size: 16px; padding: 10px 18px; }
-      .content-box { padding: 20px; }
-    }
   </style>
 </head>
 <body>
 <div id="intro">
   <button onclick="startExperience()">ابدأ</button>
 </div>
+
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 <audio id="bg-music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
+
 <div id="nav-arrows">
-  <div onclick="goToPage(currentPage + 1)">➡ صفحة التفاصيل</div>
-  <div onclick="goToPage(currentPage - 1)">⬅ صفحة الترحيب</div>
+  <div onclick="goToPage(currentPage + 1)">➡</div>
+  <div onclick="goToPage(currentPage - 1)">⬅</div>
 </div>
 
-<!-- صفحة 1: الترحيب -->
+<!-- صفحة الترحيب -->
 <div class="page" id="page1" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
@@ -149,7 +152,7 @@
   </div>
 </div>
 
-<!-- صفحة 2: التفاصيل -->
+<!-- صفحة التفاصيل -->
 <div class="page" id="page2" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
@@ -160,7 +163,7 @@
   </div>
 </div>
 
-<!-- صفحة 3: تأكيد الحضور -->
+<!-- صفحة التأكيد -->
 <div class="page" id="page3" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
@@ -197,6 +200,7 @@ function goToPage(num) {
   if (num < 0 || num >= pages.length) return;
   pages.forEach(p => p.classList.remove('active'));
   pages[num].classList.add('active');
+  currentPage = num;
   try { bgMusic.play(); } catch {}
 }
 
@@ -275,7 +279,6 @@ setInterval(() => {
   countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
 }, 1000);
 
-// التحقق من حالة الضيف عند الدخول
 window.addEventListener('DOMContentLoaded', () => {
   fetch(`https://script.google.com/macros/s/AKfycbzTz0t1_eYNTks4NXOoNNz_A9nIaG1wYInhvC8dWwjayjmzkcOvvYOUMSFhvPQcFeHBVw/exec?token=${token}&check=true`)
     .then(res => res.json())
