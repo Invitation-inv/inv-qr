@@ -57,7 +57,7 @@
       justify-content: space-between;
       pointer-events: none;
       z-index: 1000;
-      font-size: 28px;
+      font-size: 24px;
       padding: 0 10px;
     }
     #nav-arrows div {
@@ -65,14 +65,12 @@
       cursor: pointer;
       background: none;
       color: #fff;
-      font-size: 28px;
     }
     @media (max-width: 600px) {
       h1, h2, h3, h4 { font-size: 18px; }
       button { font-size: 16px; padding: 10px 18px; }
       .content-box { padding: 20px; }
-      #nav-arrows { font-size: 20px; }
-      #nav-arrows div { font-size: 20px; }
+      #nav-arrows { font-size: 18px; }
     }
     button {
       padding: 14px 24px;
@@ -114,7 +112,7 @@
       background-size: cover;
       pointer-events: none;
       z-index: 5;
-      animation: floatUp 16s linear infinite;
+      animation: floatUp 10s linear infinite;
     }
     @keyframes floatUp {
       0% { transform: translateY(100vh); opacity: 0; }
@@ -226,11 +224,15 @@ function confirmAttendance(response) {
   fetch(`https://script.google.com/macros/s/AKfycbzqIQl6ahgwDSXri0c1vkCiXENsUUe646lPv45e7FUcw_TopSks8EWw0kCebNxdQuuqwQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
-      responseMsg.innerText = res.message;
-      if (res.status === "success" || res.status === "already") {
-        showQR(res.qr, res.max);
+      if (response === "no") {
+        responseMsg.innerText = "نأسف لعدم حضوركم ❤️";
+      } else {
+        responseMsg.innerText = res.message;
+      }
+      if (res.status === "success" || res.status === "already" || response === "no") {
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
+        if (response === "yes") showQR(res.qr, res.max);
       }
     })
     .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
