@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,251 +23,255 @@
       background-position: center;
       position: relative;
     }
-    .page.active { display: block; animation: fadeIn 1s ease; }@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+    .page.active { display: block; animation: fadeIn 1s ease; }
 
-.content-box {
-  background: rgba(0,0,0,0.5);
-  padding: 30px;
-  border-radius: 20px;
-  display: inline-block;
-  max-width: 90%;
-  margin: auto;
-  position: relative;
-  z-index: 20;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-.music-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 999;
-  background: rgba(0,0,0,0.4);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 20px;
-}
+    .content-box {
+      background: rgba(0,0,0,0.5);
+      padding: 30px;
+      border-radius: 20px;
+      display: inline-block;
+      max-width: 90%;
+      margin: auto;
+      position: relative;
+      z-index: 20;
+    }
 
-#nav-arrows {
-  position: fixed;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-  z-index: 1000;
-  font-size: 20px;
-}
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 20px;
+    }
 
-#nav-arrows div {
-  pointer-events: all;
-  cursor: pointer;
-  width: 120px;
-  padding: 10px;
-  background: rgba(0,0,0,0.5);
-  border-radius: 10px;
-}
+    #nav-arrows {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 1000;
+      font-size: 20px;
+    }
 
-button {
-  padding: 16px 28px;
-  font-size: 20px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  margin: 10px;
-  background: rgba(255,255,255,0.9);
-  color: #111;
-}
+    #nav-arrows div {
+      pointer-events: all;
+      cursor: pointer;
+      width: 120px;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 10px;
+    }
 
-#downloadBtn {
-  display: none;
-  background: #4CAF50;
-  color: white;
-}
+    button {
+      padding: 16px 28px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+      background: rgba(255,255,255,0.9);
+      color: #111;
+    }
 
-#intro {
-  position: fixed;
-  inset: 0;
-  background: url('106641.jpg') center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  color: white;
-  text-align: center;
-}
+    #downloadBtn {
+      display: none;
+      background: #4CAF50;
+      color: white;
+    }
 
-#intro.close {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 2s ease;
-}
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: url('106641.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      color: white;
+      text-align: center;
+    }
 
-.butterfly {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background-image: url('106646.png');
-  background-size: cover;
-  pointer-events: none;
-  z-index: 5;
-  animation: floatUp 10s linear infinite;
-}
+    #intro.close {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease;
+    }
 
-@keyframes floatUp {
-  0% { transform: translateY(100vh); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-100vh); opacity: 0; }
-}
+    .butterfly {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('106646.png');
+      background-size: cover;
+      pointer-events: none;
+      z-index: 5;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
 
   </style>
 </head>
-<body><div id="intro">
-  <button onclick="startExperience()">ابدأ</button>
-</div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop> <source src="music.mp3" type="audio/mpeg"> </audio>
+<body>
+  <div id="intro">
+    <button onclick="startExperience()">ابدأ</button>
+  </div>
 
-<div id="nav-arrows">
-  <div onclick="goToPage(currentPage + 1)">➡ صفحة التفاصيل</div>
-  <div onclick="goToPage(currentPage - 1)">⬅ صفحة الترحيب</div>
-</div><div class="page" id="page1" style="background-image: url('106642.jpg');">
-  <div class="content-box">
-    <h1 id="guestName">حيّاك الله!</h1>
-    <h2>دعوة خاصة</h2>
-    <h3>"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
-    <p>بقلوب تنبض بالحب وتغمرها السعادة</p>
-    <p>ندعوكم لحضور</p>
-    <h4>حفل زفاف ابنتي</h4>
-    <p>اللهم ارزقنا التمام الجميل والعقد المتين</p>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="nav-arrows">
+    <div onclick="goToPage(currentPage + 1)">➡ صفحة التفاصيل</div>
+    <div onclick="goToPage(currentPage - 1)">⬅ صفحة الترحيب</div>
   </div>
-</div><div class="page" id="page2" style="background-image: url('106642.jpg');">
-  <div class="content-box">
-    <h2>تفاصيل الحفل</h2>
-    <p>📍 قاعة صدر المنصة - الرياض</p>
-    <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
-    <div id="countdown"></div>
-    <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
-  </div>
-</div><div class="page" id="page3" style="background-image: url('106642.jpg');">
-  <div class="content-box">
-    <h2 id="attendanceTitle">هل ستحضر؟</h2>
-    <div id="responseButtons">
-      <button onclick="confirmAttendance('yes')">✅ نعم</button>
-      <button onclick="confirmAttendance('no')">❌ لا</button>
+
+  <div class="page" id="page1" style="background-image: url('106642.jpg');">
+    <div class="content-box">
+      <h1 id="guestName">حيّاك الله!</h1>
+      <h2>دعوة خاصة</h2>
+      <h3>"بارك الله لهما وبارك عليهما وجمع بينهما بخير"</h3>
+      <p>بقلوب تنبض بالحب وتغمرها السعادة</p>
+      <p>ندعوكم لحضور</p>
+      <h4>حفل زفاف ابنتي</h4>
+      <p>اللهم ارزقنا التمام الجميل والعقد المتين</p>
     </div>
-    <p id="responseMsg" style="margin-top: 20px;"></p>
-    <div id="qrContainer" style="margin-top: 20px;"></div>
-    <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
-    <p id="invitationCount" style="font-size: 14px; display: none;"></p>
-    <button id="downloadBtn">📥 تحميل QR</button>
   </div>
-</div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
-const token = new URLSearchParams(location.search).get("token") || "";
-const guestName = document.getElementById("guestName");
-const qrContainer = document.getElementById("qrContainer");
-const responseButtons = document.getElementById("responseButtons");
-const attendanceTitle = document.getElementById("attendanceTitle");
-const responseMsg = document.getElementById("responseMsg");
-const qrNote = document.getElementById("qrNote");
-const downloadBtn = document.getElementById("downloadBtn");
-const invitationCount = document.getElementById("invitationCount");
-let currentPage = 0;
-const pages = document.querySelectorAll('.page');
 
-function goToPage(num) {
-  if (num < 0 || num >= pages.length) return;
-  pages.forEach(p => p.classList.remove('active'));
-  pages[num].classList.add('active');
-  currentPage = num;
-  try { bgMusic.play(); } catch {}
-}
+  <div class="page" id="page2" style="background-image: url('106642.jpg');">
+    <div class="content-box">
+      <h2>تفاصيل الحفل</h2>
+      <p>📍 قاعة صدر المنصة - الرياض</p>
+      <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
+      <div id="countdown"></div>
+      <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
+    </div>
+  </div>
 
-function startExperience() {
-  const intro = document.getElementById("intro");
-  const bgMusic = document.getElementById("bg-music");
-  if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => {});
-  intro.classList.add("close");
-  setTimeout(() => {
-    intro.style.display = "none";
-    goToPage(0);
-    createFlyingButterflies();
-  }, 2000);
-}
+  <div class="page" id="page3" style="background-image: url('106642.jpg');">
+    <div class="content-box">
+      <h2 id="attendanceTitle">هل ستحضر؟</h2>
+      <div id="responseButtons">
+        <button onclick="confirmAttendance('yes')">✅ نعم</button>
+        <button onclick="confirmAttendance('no')">❌ لا</button>
+      </div>
+      <p id="responseMsg" style="margin-top: 20px;"></p>
+      <div id="qrContainer" style="margin-top: 20px;"></div>
+      <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
+      <p id="invitationCount" style="font-size: 14px; display: none;"></p>
+      <button id="downloadBtn">📥 تحميل QR</button>
+    </div>
+  </div>
 
-function toggleMusic() {
-  const bgMusic = document.getElementById("bg-music");
-  try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
-}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-guestName.innerText = `🎓 حيّاك ${nameParam}!`;
+  <script>
+    const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+    const token = new URLSearchParams(location.search).get("token") || "";
+    const guestName = document.getElementById("guestName");
+    const qrContainer = document.getElementById("qrContainer");
+    const responseButtons = document.getElementById("responseButtons");
+    const attendanceTitle = document.getElementById("attendanceTitle");
+    const responseMsg = document.getElementById("responseMsg");
+    const qrNote = document.getElementById("qrNote");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const invitationCount = document.getElementById("invitationCount");
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.page');
 
-function confirmAttendance(response) {
-  responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbzTz0t1_eYNTks4NXOoNNz_A9nIaG1wYInhvC8dWwjayjmzkcOvvYOUMSFhvPQcFeHBVw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
-    .then(res => res.json())
-    .then(res => {
-      responseMsg.innerText = res.message;
-      if (res.status === "success" || res.status === "already") {
-        showQR(res.qr, res.max);
-      }
-      if (response === 'yes') {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-      }
-    })
-    .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
-}
-
-function showQR(link, count) {
-  qrContainer.innerHTML = "";
-  new QRCode(qrContainer, {
-    text: link,
-    width: 200,
-    height: 200
-  });
-  qrNote.style.display = "block";
-  invitationCount.style.display = "block";
-  invitationCount.innerText = `📩 عدد الدعوات المتبقية: ${count}`;
-  downloadBtn.style.display = "inline-block";
-}
-
-downloadBtn.onclick = () => {
-  const img = qrContainer.querySelector("img");
-  if (img) {
-    const link = document.createElement("a");
-    link.href = img.src;
-    link.download = "qr_code.png";
-    link.click();
-  }
-};
-
-function createFlyingButterflies() {
-  pages.forEach(page => {
-    for (let i = 0; i < 5; i++) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      b.style.left = Math.random() * 100 + '%';
-      b.style.animationDelay = (Math.random() * 5) + 's';
-      page.appendChild(b);
+    function goToPage(num) {
+      if (num < 0 || num >= pages.length) return;
+      pages.forEach(p => p.classList.remove('active'));
+      pages[num].classList.add('active');
+      currentPage = num;
+      try { bgMusic.play(); } catch {}
     }
-  });
-}
 
-const countdownEl = document.getElementById("countdown");
-const eventDate = new Date("2025-07-05T21:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = eventDate - now;
-  if (diff < 0) return countdownEl.innerText = "🎉 بدأ الزفاف!";
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
-}, 1000);
-</script></body>
-</html>
+    function startExperience() {
+      const intro = document.getElementById("intro");
+      const bgMusic = document.getElementById("bg-music");
+      if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => {});
+      intro.classList.add("close");
+      setTimeout(() => {
+        intro.style.display = "none";
+        goToPage(0);
+        createFlyingButterflies();
+      }, 2000);
+    }
+
+    function toggleMusic() {
+      const bgMusic = document.getElementById("bg-music");
+      try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
+    }
+
+    guestName.innerText = `🎓 حيّاك ${nameParam}!`;
+
+    function confirmAttendance(response) {
+      responseMsg.innerText = "⏳ جاري التسجيل...";
+      fetch(`https://script.google.com/macros/s/AKfycbzTz0t1_eYNTks4NXOoNNz_A9nIaG1wYInhvC8dWwjayjmzkcOvvYOUMSFhvPQcFeHBVw/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+        .then(res => res.json())
+        .then(res => {
+          responseMsg.innerText = res.message;
+          if (res.status === "success" || res.status === "already") {
+            showQR(res.qr, res.max);
+          }
+          if (response === 'yes') {
+            responseButtons.style.display = "none";
+            attendanceTitle.style.display = "none";
+          }
+        })
+        .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
+    }
+
+    function showQR(link, count) {
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: link,
+        width: 200,
+        height: 200
+      });
+      qrNote.style.display = "block";
+      invitationCount.style.display = "block";
+      invitationCount.innerText = `📩 عدد الدعوات المتبقية: ${count}`;
+      downloadBtn.style.display = "inline-block";
+    }
+
+    downloadBtn.onclick = () => {
+      const img = qrContainer.querySelector("img");
+      if (img) {
+        const link = document.createElement("a");
+        link.href = img.src;
+        link.download = "qr_code.png";
+        link.click();
+      }
+    };
+
+    function createFlyingButterflies() {
+      pages.forEach(page => {
+        for (let i = 0; i < 5; i++) {
+          const b = document.createElement('div');
+          b.className = 'butterfly';
+          b.style.left = Math.random() * 100 + '%';
+          b.style.animationDelay = (Math.random() * 5) + 's';
+          page.appendChild(b);
+        }
+      });
+    }
