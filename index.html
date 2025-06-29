@@ -64,7 +64,7 @@
       pointer-events: all;
       cursor: pointer;
       background: none;
-      color: #ff4d4d;
+      color: #e6e6e6;
       font-size: 28px;
     }
     @media (max-width: 600px) {
@@ -114,7 +114,7 @@
       background-size: cover;
       pointer-events: none;
       z-index: 5;
-      animation: floatUp 10s linear infinite;
+      animation: floatUp 7s linear infinite;
     }
     @keyframes floatUp {
       0% { transform: translateY(100vh); opacity: 0; }
@@ -139,7 +139,6 @@
   <div onclick="goToPage(currentPage - 1)">⬅</div>
 </div>
 
-<!-- صفحة الترحيب -->
 <div class="page" id="page1" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h1 id="guestName">حيّاك الله!</h1>
@@ -152,7 +151,6 @@
   </div>
 </div>
 
-<!-- صفحة التفاصيل -->
 <div class="page" id="page2" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2>تفاصيل الحفل</h2>
@@ -163,7 +161,6 @@
   </div>
 </div>
 
-<!-- صفحة التأكيد -->
 <div class="page" id="page3" style="background-image: url('106642.jpg');">
   <div class="content-box">
     <h2 id="attendanceTitle">هل ستحضر؟</h2>
@@ -221,33 +218,23 @@ function toggleMusic() {
   try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
 }
 
+// ✅ أهم تعديل هنا
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
   fetch(`https://script.google.com/macros/s/AKfycbxPZJpRncgHbifDL3rQIIYY4hGESFmQfaK2u8aM8YONaUvCU00da-KPB2lkaulk9Iz1yQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseMsg.innerText = res.message;
+      responseButtons.style.display = "none";
+      attendanceTitle.style.display = "none";
 
-      if (res.status === "success" || res.status === "already") {
+      if (response === "yes" && (res.status === "success" || res.status === "already")) {
         showQR(res.qr, res.max);
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-      }
-
-      if (res.status === "declined") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        qrContainer.innerHTML = "";
-        qrNote.style.display = "none";
-        downloadBtn.style.display = "none";
-        invitationCount.style.display = "none";
-        responseMsg.style.color = "pink";
-        responseMsg.style.fontWeight = "bold";
+      } else if (response === "no") {
+        responseMsg.innerText = "😢 نأسف لعدم تمكنك من الحضور، نتمنى رؤيتك في مناسبات قادمة.";
       }
     })
-    .catch(() => {
-      responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.";
-    });
+    .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
 }
 
 function showQR(link, count) {
@@ -297,23 +284,11 @@ window.addEventListener('DOMContentLoaded', () => {
   fetch(`https://script.google.com/macros/s/AKfycbxPZJpRncgHbifDL3rQIIYY4hGESFmQfaK2u8aM8YONaUvCU00da-KPB2lkaulk9Iz1yQ/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
-      if (res.status === "already" || res.status === "success") {
+      if (res.status === "already") {
         showQR(res.qr, res.max);
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
         responseMsg.innerText = res.message;
-      }
-
-      if (res.status === "declined") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        qrContainer.innerHTML = "";
-        qrNote.style.display = "none";
-        downloadBtn.style.display = "none";
-        invitationCount.style.display = "none";
-        responseMsg.innerText = res.message;
-        responseMsg.style.color = "pink";
-        responseMsg.style.fontWeight = "bold";
       }
     })
     .catch(() => {
