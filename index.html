@@ -23,7 +23,7 @@
       background-position: center;
       position: relative;
     }
-    .page.active { display: block; animation: fadeIn 1s ease; }
+    .page.active { display: block; animation: fadeIn 5s ease; }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -220,7 +220,7 @@ function toggleMusic() {
 
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbz7q_nbsbv1jJAWqcVYqd9RMKipj73Gypcf_NfnDeGC1ynE3LiQfu61mk56kzOhR7FKoA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+  fetch(`https://script.google.com/macros/s/AKfycbxwNM2sRAXpodgNAWrd8bmeREuUAeKbDsRdC4qY6T5MPb_lC6AzFVHIcWm2B_W_uGVO/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseButtons.style.display = "none";
@@ -285,7 +285,7 @@ setInterval(() => {
 }, 1000);
 
 window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://script.google.com/macros/s/AKfycbz7q_nbsbv1jJAWqcVYqd9RMKipj73Gypcf_NfnDeGC1ynE3LiQfu61mk56kzOhR7FKoA/exec?token=${token}&check=true`)
+  fetch(`https://script.google.com/macros/s/AKfycbxwNM2sRAXpodgNAWrd8bmeREuUAeKbDsRdC4qY6T5MPb_lC6AzFVHIcWm2B_W_uGVO/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
       if (res.status === "already" || res.status === "used") {
