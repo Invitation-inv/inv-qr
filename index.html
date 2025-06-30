@@ -288,7 +288,7 @@ window.addEventListener('DOMContentLoaded', () => {
   fetch(`https://script.google.com/macros/s/AKfycbz7q_nbsbv1jJAWqcVYqd9RMKipj73Gypcf_NfnDeGC1ynE3LiQfu61mk56kzOhR7FKoA/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
-      if (res.status === "already" || res.status === "success") {
+      if (res.status === "already" || res.status === "used") {
         showQR(res.qr, res.max);
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
@@ -296,7 +296,7 @@ window.addEventListener('DOMContentLoaded', () => {
       } else if (res.status === "declined") {
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message;
+        responseMsg.innerText = res.message || " نأسف لعدم تمكنك من الحضور.";
       }
     })
     .catch(() => {
