@@ -172,7 +172,7 @@
     <div id="qrContainer" style="margin-top: 20px;"></div>
     <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للحفل. لا تشاركه.</p>
     <p id="invitationCount" style="font-size: 14px; display: none;"></p>
-    <button id="downloadBtn">📅 تحميل QR</button>
+    <button id="downloadBtn">تحميل QR</button>
   </div>
 </div>
 
@@ -191,7 +191,7 @@ const invitationCount = document.getElementById("invitationCount");
 let currentPage = 0;
 const pages = document.querySelectorAll('.page');
 
-guestName.innerText = `🎓 حيّاك ${nameParam}!`;
+guestName.innerText = ` حيّاك ${nameParam}!`;
 
 function goToPage(num) {
   if (num < 0 || num >= pages.length) return;
@@ -223,16 +223,22 @@ function confirmAttendance(response) {
   fetch(`https://script.google.com/macros/s/AKfycbz7q_nbsbv1jJAWqcVYqd9RMKipj73Gypcf_NfnDeGC1ynE3LiQfu61mk56kzOhR7FKoA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
-      responseMsg.innerText = res.message;
       responseButtons.style.display = "none";
       attendanceTitle.style.display = "none";
-      if (response === "yes" && (res.status === "success" || res.status === "already")) {
+      responseMsg.innerText = res.message;
+
+      if (res.status === "success" || res.status === "already") {
         showQR(res.qr, res.max);
-      } else if (response === "no") {
-        responseMsg.innerText = "😢 نأسف لعدم تمكنك من الحضور، نتمنى رؤيتك في مناسبات قادمة.";
+      } else if (res.status === "declined") {
+        // لا يوجد QR في حالة الرفض
+        qrContainer.innerHTML = "";
+        qrNote.style.display = "none";
+        invitationCount.style.display = "none";
       }
     })
-    .catch(() => responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.");
+    .catch(() => {
+      responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.";
+    });
 }
 
 function showQR(link, count) {
@@ -282,21 +288,22 @@ window.addEventListener('DOMContentLoaded', () => {
   fetch(`https://script.google.com/macros/s/AKfycbz7q_nbsbv1jJAWqcVYqd9RMKipj73Gypcf_NfnDeGC1ynE3LiQfu61mk56kzOhR7FKoA/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
-      if (res.status === "already") {
+      if (res.status === "already" || res.status === "success") {
         showQR(res.qr, res.max);
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
         responseMsg.innerText = res.message;
-      } else if (res.status === "no") {
+      } else if (res.status === "declined") {
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
-        responseMsg.innerText = " نأسف لعدم تمكنك من الحضور، نتمنى رؤيتك في مناسبات قادمة.";
+        responseMsg.innerText = res.message;
       }
     })
     .catch(() => {
-      responseMsg.innerText = " لم نتمكن من التحقق من حالتك.";
+      responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
     });
 });
 </script>
+
 </body>
 </html>
