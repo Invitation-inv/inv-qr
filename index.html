@@ -39,7 +39,6 @@
       z-index: 20;
       animation: fadeInContent 1.5s ease forwards;
       opacity: 0;
-      transform: translateY(20px);
 
     }
 
@@ -222,22 +221,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  function startExperience() {
-  const intro = document.getElementById("intro");
-  const centerImg = document.getElementById("introImage");
-  const topImg = document.getElementById("cornerTop");
-  const bottomImg = document.getElementById("cornerBottom");
 
-  centerImg.style.opacity = 0;
-  topImg.classList.add("move-top");
-  bottomImg.classList.add("move-bottom");
-
-  setTimeout(() => {
-    intro.classList.add("close");
-    document.querySelectorAll('.content-box').forEach(box => box.style.opacity = '1');
-    goToPage(0);
-  }, 2000);
-}
 const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
 const token = new URLSearchParams(location.search).get("token") || "";
 const guestName = document.getElementById("guestName");
@@ -260,7 +244,6 @@ function goToPage(num) {
   currentPage = num;
   try { bgMusic.play(); } catch {}
   }
-
 }
 
 function startExperience() {
