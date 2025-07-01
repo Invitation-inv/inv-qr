@@ -52,7 +52,7 @@
       color: #fff;
       padding: 10px 16px;
       border-radius: 8px;
-      font-size: 20px;
+      font-size: 10px;
     }
     #nav-arrows {
       position: fixed;
@@ -110,28 +110,30 @@
       background: url('107536.png') center/contain no-repeat;
       margin-bottom: 20px;
       transition: opacity 1s ease;
-    }
+    }    
     .corner-img {
-   position: absolute;
-    width: 200px;
-    height: 200px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: spin 20s linear infinite;
-    z-index: 10000;
-  }
-
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: transform 2s ease, top 2s ease, bottom 2s ease;
+      z-index: 10000; /* تجعل الصور فوق باقي العناصر */
+      animation: spin 20s linear infinite;
     }
+    
     .corner-top {
-      top: 10px;
-      left: 10px;
-      background-image: url('107537.png');
+      top: 20px;
+      right: 20px; /* بدّلي من left إلى right حسب اتجاه RTL */
+      background-image: url('corner1.png');
     }
+    
     .corner-bottom {
       bottom: 20px;
-      right: 20px;
-      background-image: url('107537.png');
+      left: 20px; /* بدّلي من right إلى left */
+      background-image: url('corner2.png');
     }
+
     .move-top {
       transform: translateY(-100vh);
     }
