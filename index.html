@@ -42,8 +42,7 @@
       transform: translateY(20px);
 
     }
-    animation: fadeInContent 1.5s ease forwards;
-    opacity: 0;
+
     
 
 @keyframes slideFadeIn {
@@ -261,19 +260,6 @@ function goToPage(num) {
   currentPage = num;
   try { bgMusic.play(); } catch {}
   }
-  if (num < 0 || num >= document.querySelectorAll('.page').length) return;
-
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.content-box').forEach(box => box.style.opacity = '0'); // إعادة إخفاء المحتوى
-
-  const page = document.querySelectorAll('.page')[num];
-  page.classList.add('active');
-
-  setTimeout(() => {
-    page.querySelectorAll('.content-box').forEach(box => box.style.opacity = '1'); // إظهار تدريجي
-  }, 300); // بعد ظهور الصفحة
-
-  currentPage = num;
 
 }
 
