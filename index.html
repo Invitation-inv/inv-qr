@@ -135,6 +135,24 @@
     .move-bottom {
       transform: translateY(100vh);
     }
+    @keyframes rotateTop {
+  0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+@keyframes rotateBottom {
+  0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+.rotate-top {
+  animation: rotateTop 6s linear infinite;
+}
+
+.rotate-bottom {
+  animation: rotateBottom 6s linear infinite;
+}
+
   </style>
 </head>
 <body>
@@ -315,6 +333,22 @@ setInterval(() => {
   const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
 }, 1000);
+  function startExperience() {
+  const intro = document.getElementById("intro");
+  const centerImg = document.getElementById("introImage");
+  const topImg = document.getElementById("cornerTop");
+  const bottomImg = document.getElementById("cornerBottom");
+
+  centerImg.style.opacity = 0;
+  topImg.classList.add("rotate-top");
+  bottomImg.classList.add("rotate-bottom");
+
+  setTimeout(() => {
+    intro.classList.add("close");
+    document.querySelectorAll('.content-box').forEach(box => box.style.opacity = '1');
+    goToPage(0);
+  }, 2000);
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   fetch(`https://script.google.com/macros/s/AKfycbxwNM2sRAXpodgNAWrd8bmeREuUAeKbDsRdC4qY6T5MPb_lC6AzFVHIcWm2B_W_uGVO/exec?token=${token}&check=true`)
@@ -335,6 +369,7 @@ window.addEventListener('DOMContentLoaded', () => {
       responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
     });
 });
+  
 </script>
 
 </body>
