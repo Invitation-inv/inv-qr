@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,196 +11,147 @@
       background-color: #000;
       overflow-x: hidden;
       color: white;
-    }
+    }/* الانترو */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+#intro video {
+  width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1;
+}
+#intro .overlay {
+  position: relative; z-index: 2;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background-color: rgba(0,0,0,0.3);
+}
+#intro button {
+  padding: 14px 30px; font-size: 20px;
+  background-color: rgba(255,255,255,0.8); color: #000;
+  border: none; border-radius: 12px; cursor: pointer;
+}
+#intro.close {
+  opacity: 0; pointer-events: none; transition: opacity 2s ease;
+}
 
-    /* صفحة الانترو */
-    #intro {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-    }
+.page {
+  display: none;
+  min-height: 100vh;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 60px 20px;
+}
+.page.active { display: block; animation: fadeIn 1s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-    #intro video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      z-index: 1;
-    }
+.decor-img {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  opacity: 0.9;
+  z-index: 1;
+}
+.page-content {
+  position: relative;
+  z-index: 2;
+}
 
-    #intro .overlay {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(0,0,0,0.3);
-    }
+.fade-in {
+  opacity: 0;
+  animation: fadeInText 1s forwards;
+}
+@keyframes fadeInText {
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    #intro button {
-      padding: 14px 30px;
-      font-size: 20px;
-      background-color: rgba(255,255,255,0.8);
-      color: #000;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-    }
+.music-btn {
+  position: fixed; top: 20px; left: 20px; z-index: 999;
+  background: rgba(0,0,0,0.4); color: #fff; padding: 10px 16px;
+  border-radius: 8px; font-size: 10px;
+}
 
-    #intro.close {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 2s ease;
-    }
+#nav-arrows {
+  position: fixed; top: 50%; width: 100%; display: flex;
+  justify-content: space-between; pointer-events: none; z-index: 1000;
+  font-size: 28px; padding: 0 10px;
+}
+#nav-arrows div {
+  pointer-events: all; cursor: pointer; color: #fff;
+}
 
-    /* الصفحات */
-    .page {
-      display: none;
-      min-height: 100vh;
-      text-align: center;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      padding: 60px 20px;
-    }
+button {
+  padding: 14px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+  background-image: url('107830.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  color: #fff;
+}
 
-    .page.active {
-      display: block;
-      animation: fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* صورة زخرفية */
-    .overlay-img {
-      width: 300px;
-      margin: 20px auto;
-      display: block;
-      opacity: 0.9;
-    }
-
-    /* ظهور تدريجي للنصوص */
-    .fade-in {
-      opacity: 0;
-      animation: fadeInText 1s forwards;
-    }
-
-    @keyframes fadeInText {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* زر الموسيقى */
-    .music-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 999;
-      background: rgba(0,0,0,0.4);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 10px;
-    }
-
-    /* الأسهم */
-    #nav-arrows {
-      position: fixed;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-      z-index: 1000;
-      font-size: 28px;
-      padding: 0 10px;
-    }
-
-    #nav-arrows div {
-      pointer-events: all;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    button {
-padding: 14px 24px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 10px;
-      background-image: url('107830.jpg'); /* غيّري الخلفية حسب رغبتك */
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-color: transparent;
-      color: #fff;
-    }
   </style>
 </head>
 <body>
-
-<!-- الانترو -->
-<div id="intro">
-  <video id="introVideo" muted>
-    <source src="107763.mp4" type="video/mp4" />
-  </video>
-  <div class="overlay">
-    <button onclick="startExperience()">ابدأ</button>
-  </div>
-</div>
-
-<!-- زر الموسيقى -->
-<button class="music-btn" onclick="toggleMusic()">🎵</button>
-<audio id="bg-music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<!-- الأسهم -->
-<div id="nav-arrows">
-  <div onclick="goToPage(currentPage + 1)">➡</div>
-  <div onclick="goToPage(currentPage - 1)">⬅</div>
-</div>
-
-<!-- صفحة الترحيب -->
-<div class="page" id="page1" style="background-image: url('107532.jpg');">
-  <img src="107830.png" alt="زخرفة" class="overlay-img">
-  <h1 class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
-  <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
-  <h3 class="fade-in" style="animation-delay: 1.5s;">بارك الله لهما وبارك عليهما وجمع بينهما بخير</h3>
-  <p class="fade-in" style="animation-delay: 2s;">بقلوب تنبض بالحب وتغمرها السعادة</p>
-  <p class="fade-in" style="animation-delay: 2.5s;">ندعوكم لحضور</p>
-  <h4 class="fade-in" style="animation-delay: 3s;">حفل زفاف ابنتي فرح</h4>
-  <p class="fade-in" style="animation-delay: 3.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
-</div>
-
-<div class="page" id="page2" style="background-image: url('106642.jpg');">
-    <img src="107830.png" alt="زخرفة" class="overlay-img">
-    <h2>تفاصيل الحفل</h2>
-    <p>📍 قاعة صدر المنصة - الرياض</p>
-    <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
-    <div id="countdown"></div>
-    <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
-</div>
-
-<div class="page" id="page3" style="background-image: url('106642.jpg');">
-    <img src="107830.png" alt="زخرفة" class="overlay-img">
-    <h2 id="attendanceTitle">هل ستحضر؟</h2>
-    <div id="responseButtons">
-      <button onclick="confirmAttendance('yes')"> نعم,بأذن الله</button>
-      <button onclick="confirmAttendance('no')"> لا,اعتذر عن الحضور</button>
+  <!-- الانترو -->
+  <div id="intro">
+    <video id="introVideo" muted>
+      <source src="107763.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay">
+      <button onclick="startExperience()">ابدأ</button>
     </div>
-    <p id="responseMsg" style="margin-top: 20px;"></p>
-    <div id="qrContainer" style="margin-top: 20px;"></div>
-    <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</p>
-    <p id="invitationCount" style="font-size: 14px; display: none;"></p>
-    <button id="downloadBtn">تحميل QR</button>
+  </div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-</div>
+  <div id="nav-arrows">
+    <div onclick="goToPage(currentPage + 1)">➡</div>
+    <div onclick="goToPage(currentPage - 1)">⬅</div>
+  </div> <!-- صفحة الترحيب --> <div class="page" id="page1" style="background-image: url('107766.jpg');">
+    <img src="107830.png" alt="زخرفة" class="decor-img">
+    <div class="page-content">
+      <h1 class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
+      <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
+      <h3 class="fade-in" style="animation-delay: 1.5s;">بارك الله لهما وبارك عليهما وجمع بينهما بخير</h3>
+      <p class="fade-in" style="animation-delay: 2s;">بقلوب تنبض بالحب وتغمرها السعادة</p>
+      <p class="fade-in" style="animation-delay: 2.5s;">ندعوكم لحضور</p>
+      <h4 class="fade-in" style="animation-delay: 3s;">حفل زفاف ابنتي فرح</h4>
+      <p class="fade-in" style="animation-delay: 3.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
+    </div>
+  </div> <!-- صفحة الموقع --> <div class="page" id="page2" style="background-image: url('107766.jpg');">
+    <img src="107830.png" alt="زخرفة" class="decor-img">
+    <div class="page-content">
+      <h2>تفاصيل الحفل</h2>
+      <p>📍 قاعة صدر المنصة - الرياض</p>
+      <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
+      <div id="countdown"></div>
+      <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
+    </div>
+  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('107766.jpg');">
+    <img src="107830.png" alt="زخرفة" class="decor-img">
+    <div class="page-content">
+      <h2 id="attendanceTitle">هل ستحضر؟</h2>
+      <div id="responseButtons">
+        <button onclick="confirmAttendance('yes')"> نعم,بأذن الله</button>
+        <button onclick="confirmAttendance('no')"> لا,اعتذر عن الحضور</button>
+      </div>
+      <p id="responseMsg" style="margin-top: 20px;"></p>
+      <div id="qrContainer" style="margin-top: 20px;"></div>
+      <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</p>
+      <p id="invitationCount" style="font-size: 14px; display: none;"></p>
+      <button id="downloadBtn">تحميل QR</button>
+    </div>
+  </div> 
   <script>
 let currentPage = 0;
 const pages = document.querySelectorAll('.page');
