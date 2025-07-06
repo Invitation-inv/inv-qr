@@ -212,15 +212,29 @@ function goToPage(num) {
 
 function startExperience() {
   const intro = document.getElementById("intro");
-  const bgMusic = document.getElementById("bg-music");
-  if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => {});
-  intro.classList.add("close");
-  setTimeout(() => {
-    intro.style.display = "none";
-    goToPage(0);
-    createFlyingButterflies();
-  }, 2000);
+  const video = document.getElementById("introVideo");
+  const music = document.getElementById("bg-music");
+
+  try {
+    // شغلي الفيديو أولاً
+    video.play().then(() => {
+      // بعد 3 ثواني نخفي الانترو ونبدأ الصفحة
+      setTimeout(() => {
+        intro.classList.add("close");
+        setTimeout(() => {
+          intro.style.display = "none";
+          goToPage(0);
+          music.play();
+        }, 1000);
+      }, 3000); // انتظري شوي علشان يبدأ الفيديو
+    }).catch((err) => {
+      console.log("خطأ في تشغيل الفيديو:", err);
+    });
+  } catch (err) {
+    console.log("خطأ عام:", err);
+  }
 }
+
 
 function toggleMusic() {
   const bgMusic = document.getElementById("bg-music");
