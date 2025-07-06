@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل زفاف</title>
@@ -11,8 +10,7 @@
       background-color: #000;
       overflow-x: hidden;
       color: white;
-    }/* الانترو */
-#intro {
+    }#intro {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -42,7 +40,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  padding: 60px 20px;
+  padding: 120px 20px 60px;
 }
 .page.active { display: block; animation: fadeIn 1s ease; }
 @keyframes fadeIn {
@@ -98,6 +96,7 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   background-color: transparent;
+  color: #fff;
 }
 
   </style>
@@ -151,15 +150,18 @@ button {
       <button id="downloadBtn">تحميل QR</button>
     </div>
   </div> 
-  <script>
-let currentPage = 0;
-const pages = document.querySelectorAll('.page');
+<script>
+      let currentPage = 0;
+    const pages = document.querySelectorAll('.page');
 
-function goToPage(num) {
-  if (num < 0 || num >= pages.length) return;
-  pages.forEach(p => p.classList.remove('active'));
-  pages[num].classList.add('active');
-}
+    function goToPage(num) {
+      if (num < 0 || num >= pages.length) return;
+      pages.forEach(p => p.classList.remove('active'));
+      pages[num].classList.add('active');
+    }
+
+    
+
 
 function startExperience() {
   const intro = document.getElementById("intro");
