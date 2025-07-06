@@ -229,7 +229,7 @@ function toggleMusic() {
 
 function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbxwNM2sRAXpodgNAWrd8bmeREuUAeKbDsRdC4qY6T5MPb_lC6AzFVHIcWm2B_W_uGVO/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+  fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
     .then(res => res.json())
     .then(res => {
       responseButtons.style.display = "none";
@@ -294,7 +294,7 @@ setInterval(() => {
 }, 1000);
 
 window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://script.google.com/macros/s/AKfycbxwNM2sRAXpodgNAWrd8bmeREuUAeKbDsRdC4qY6T5MPb_lC6AzFVHIcWm2B_W_uGVO/exec?token=${token}&check=true`)
+  fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?token=${token}&check=true`)
     .then(res => res.json())
     .then(res => {
       if (res.status === "already" || res.status === "used") {
