@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,92 +13,147 @@
       overflow-x: hidden;
       color: white;
     }
+
+    /* الانترو */
     #intro {
       position: fixed;
       inset: 0;
       z-index: 9999;
     }
     #intro video {
-      width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      z-index: 1;
     }
     #intro .overlay {
-      position: relative; z-index: 2;
-      width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 100px;
       background-color: rgba(0,0,0,0.3);
+      text-align: center;
     }
     #intro button {
-      padding: 14px 30px; font-size: 20px;
-      background-color: rgba(255,255,255,0.8); color: #000;
-      border: none; border-radius: 12px; cursor: pointer;
+      padding: 14px 30px;
+      font-size: 20px;
+      background-color: rgba(255,255,255,0.8);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+      z-index: 3;
     }
-    #intro.close { opacity: 0; pointer-events: none; transition: opacity 2s ease; }.page {
-  display: none;
-  min-height: 100vh;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  padding: 60px 20px;
-}
-.page.active { display: block; animation: fadeIn 1s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    #intro.starting button {
+      display: none;
+    }
+    #intro.close {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease;
+    }
 
-.decor-img {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 400px;
-  opacity: 0.9;
-  z-index: 1;
-}
-.page-content {
-  position: relative;
-  z-index: 2;
-}
-.fade-in { opacity: 0; animation: fadeInText 1s forwards; }
-@keyframes fadeInText { to { opacity: 1; transform: translateY(0); } }
+    .page {
+      display: none;
+      min-height: 100vh;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      padding: 60px 20px;
+    }
+    .page.active { display: block; animation: fadeIn 1s ease; }
 
-.music-btn {
-  position: fixed; top: 20px; left: 20px; z-index: 999;
-  background: rgba(0,0,0,0.4); color: #fff; padding: 10px 16px;
-  border-radius: 8px; font-size: 10px;
-}
-#nav-arrows {
-  position: fixed; top: 50%; width: 100%; display: flex;
-  justify-content: space-between; pointer-events: none; z-index: 1000;
-  font-size: 28px; padding: 0 10px;
-}
-#nav-arrows div {
-  pointer-events: all; cursor: pointer; color: #fff;
-}
-button {
-  padding: 14px 24px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 10px;
-  background-image: url('107831.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: transparent;
-}
-@media (max-width: 600px) {
-  .page-content h1,
-  .page-content h2,
-  .page-content h3,
-  .page-content h4,
-  .page-content p {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  .decor-img { width: 200px; bottom: 20px; }
-  button { font-size: 16px; padding: 12px 18px; }
-  iframe { height: 200px !important; }
-  #nav-arrows { font-size: 22px; }
-}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
+    .page-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .decor-img {
+      position: relative;
+      margin: 30px auto 0;
+      width: 250px;
+      max-width: 80%;
+      opacity: 0.9;
+      display: block;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeInText 1s forwards;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      padding: 14px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      background-image: url('107831.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: transparent;
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 10px;
+    }
+
+    #nav-arrows {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 1000;
+      font-size: 28px;
+      padding: 0 10px;
+    }
+
+    #nav-arrows div {
+      pointer-events: all;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 40px 10px;
+      }
+      h1, h2, h3, h4, p {
+        font-size: 16px;
+      }
+      button {
+        font-size: 16px;
+        padding: 12px 18px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -116,7 +172,7 @@ button {
   <div id="nav-arrows">
     <div onclick="goToPage(currentPage + 1)">➡</div>
     <div onclick="goToPage(currentPage - 1)">⬅</div>
-  </div> <!-- صفحة الترحيب --> <div class="page" id="page1" style="background-image: url('107766.jpg');">
+  </div> <!-- صفحة الترحيب --> <div class="page" id="page1" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h1 class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
       <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
@@ -127,7 +183,7 @@ button {
       <p class="fade-in" style="animation-delay: 3.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
-  </div> <!-- صفحة التفاصيل --> <div class="page" id="page2" style="background-image: url('107766.jpg');">
+  </div> <!-- صفحة التفاصيل --> <div class="page" id="page2" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h2>تفاصيل الحفل</h2>
       <p>📍 قاعة صدر المنصة - الرياض</p>
@@ -136,7 +192,7 @@ button {
       <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
-  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('107766.jpg');">
+  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h2 id="attendanceTitle">هل ستحضر؟</h2>
       <div id="responseButtons">
@@ -161,26 +217,24 @@ button {
       currentPage = num;
     }
 
-    function startExperience() {
-      const intro = document.getElementById("intro");
-      const video = document.getElementById("introVideo");
-      const music = document.getElementById("bg-music");
+ function startExperience() {
+  const intro = document.getElementById("intro");
+  const video = document.getElementById("introVideo");
+  const music = document.getElementById("bg-music");
 
-      video.play().catch(() => {});
-      music.play().catch(() => {});
+  intro.classList.add("starting");
 
-      intro.classList.add("close");
-      setTimeout(() => {
-        intro.style.display = "none";
-        goToPage(0);
-      }, 2000);
-    }
-
-    function toggleMusic() {
-      const music = document.getElementById("bg-music");
-      if (music.paused) music.play().catch(() => {});
-      else music.pause();
-    }
+  video.play().then(() => {
+    music.play().catch(() => {});
+    intro.classList.add("close");
+    setTimeout(() => {
+      intro.style.display = "none";
+      goToPage(0);
+    }, 2000);
+  }).catch(err => {
+    alert("يرجى الضغط مرتين للتشغيل بسبب إعدادات المتصفح.");
+  });
+}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -205,31 +259,6 @@ function goToPage(num) {
   pages[num].classList.add('active');
   currentPage = num;
   try { bgMusic.play(); } catch {}
-}
-
-function startExperience() {
-  const intro = document.getElementById("intro");
-  const video = document.getElementById("introVideo");
-  const music = document.getElementById("bg-music");
-
-  try {
-    // شغلي الفيديو أولاً
-    video.play().then(() => {
-      // بعد 3 ثواني نخفي الانترو ونبدأ الصفحة
-      setTimeout(() => {
-        intro.classList.add("close");
-        setTimeout(() => {
-          intro.style.display = "none";
-          goToPage(0);
-          music.play();
-        }, 1000);
-      }, 3000); // انتظري شوي علشان يبدأ الفيديو
-    }).catch((err) => {
-      console.log("خطأ في تشغيل الفيديو:", err);
-    });
-  } catch (err) {
-    console.log("خطأ عام:", err);
-  }
 }
 
 
