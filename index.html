@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>دعوة حفل زفاف</title>
@@ -10,43 +11,36 @@
       background-color: #000;
       overflow-x: hidden;
       color: white;
-    }#intro {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
-#intro video {
-  width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1;
-}
-#intro .overlay {
-  position: relative; z-index: 2;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  background-color: rgba(0,0,0,0.3);
-}
-#intro button {
-  padding: 14px 30px; font-size: 20px;
-  background-color: rgba(255,255,255,0.8); color:#ffffff;
-  border: none; border-radius: 12px; cursor: pointer;
-}
-#intro.close {
-  opacity: 0; pointer-events: none; transition: opacity 2s ease;
-}
-
-.page {
+    }
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+    }
+    #intro video {
+      width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1;
+    }
+    #intro .overlay {
+      position: relative; z-index: 2;
+      width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background-color: rgba(0,0,0,0.3);
+    }
+    #intro button {
+      padding: 14px 30px; font-size: 20px;
+      background-color: rgba(255,255,255,0.8); color: #000;
+      border: none; border-radius: 12px; cursor: pointer;
+    }
+    #intro.close { opacity: 0; pointer-events: none; transition: opacity 2s ease; }.page {
   display: none;
   min-height: 100vh;
   text-align: center;
   background-size: cover;
   background-position: center;
   position: relative;
-  padding: 150px 10px 50px;
+  padding: 60px 20px;
 }
 .page.active { display: block; animation: fadeIn 1s ease; }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .decor-img {
   position: absolute;
@@ -61,21 +55,14 @@
   position: relative;
   z-index: 2;
 }
-
-.fade-in {
-  opacity: 0;
-  animation: fadeInText 1s forwards;
-}
-@keyframes fadeInText {
-  to { opacity: 1; transform: translateY(0); }
-}
+.fade-in { opacity: 0; animation: fadeInText 1s forwards; }
+@keyframes fadeInText { to { opacity: 1; transform: translateY(0); } }
 
 .music-btn {
   position: fixed; top: 20px; left: 20px; z-index: 999;
   background: rgba(0,0,0,0.4); color: #fff; padding: 10px 16px;
   border-radius: 8px; font-size: 10px;
 }
-
 #nav-arrows {
   position: fixed; top: 50%; width: 100%; display: flex;
   justify-content: space-between; pointer-events: none; z-index: 1000;
@@ -84,7 +71,6 @@
 #nav-arrows div {
   pointer-events: all; cursor: pointer; color: #fff;
 }
-
 button {
   padding: 14px 24px;
   font-size: 18px;
@@ -96,27 +82,41 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   background-color: transparent;
-  color: #fff;
+}
+@media (max-width: 600px) {
+  .page-content h1,
+  .page-content h2,
+  .page-content h3,
+  .page-content h4,
+  .page-content p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .decor-img { width: 200px; bottom: 20px; }
+  button { font-size: 16px; padding: 12px 18px; }
+  iframe { height: 200px !important; }
+  #nav-arrows { font-size: 22px; }
 }
 
   </style>
 </head>
 <body>
-  <!-- الانترو -->
   <div id="intro">
-    <video id="introVideo" muted>
+    <video id="introVideo" muted playsinline>
       <source src="107763.mp4" type="video/mp4" />
     </video>
     <div class="overlay">
       <button onclick="startExperience()">ابدأ</button>
     </div>
-  </div><button class="music-btn" onclick="toggleMusic()">🎵</button> <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
-
+  </div>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
   <div id="nav-arrows">
     <div onclick="goToPage(currentPage + 1)">➡</div>
     <div onclick="goToPage(currentPage - 1)">⬅</div>
   </div> <!-- صفحة الترحيب --> <div class="page" id="page1" style="background-image: url('107766.jpg');">
-    <img src="107830.png" alt="زخرفة" class="decor-img">
     <div class="page-content">
       <h1 class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
       <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
@@ -126,8 +126,8 @@ button {
       <h4 class="fade-in" style="animation-delay: 3s;">حفل زفاف ابنتي فرح</h4>
       <p class="fade-in" style="animation-delay: 3.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
     </div>
-  </div> <!-- صفحة الموقع --> <div class="page" id="page2" style="background-image: url('107766.jpg');">
     <img src="107830.png" alt="زخرفة" class="decor-img">
+  </div> <!-- صفحة التفاصيل --> <div class="page" id="page2" style="background-image: url('107766.jpg');">
     <div class="page-content">
       <h2>تفاصيل الحفل</h2>
       <p>📍 قاعة صدر المنصة - الرياض</p>
@@ -135,13 +135,13 @@ button {
       <div id="countdown"></div>
       <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
     </div>
-  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('107766.jpg');">
     <img src="107830.png" alt="زخرفة" class="decor-img">
+  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('107766.jpg');">
     <div class="page-content">
       <h2 id="attendanceTitle">هل ستحضر؟</h2>
       <div id="responseButtons">
-        <button onclick="confirmAttendance('yes')"> نعم,بأذن الله</button>
-        <button onclick="confirmAttendance('no')"> لا,اعتذر عن الحضور</button>
+        <button onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
+        <button onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
       </div>
       <p id="responseMsg" style="margin-top: 20px;"></p>
       <div id="qrContainer" style="margin-top: 20px;"></div>
@@ -149,41 +149,38 @@ button {
       <p id="invitationCount" style="font-size: 14px; display: none;"></p>
       <button id="downloadBtn">تحميل QR</button>
     </div>
-  </div> 
-<script>
-      let currentPage = 0;
+    <img src="107830.png" alt="زخرفة" class="decor-img">
+  </div> <script>
+    let currentPage = 0;
     const pages = document.querySelectorAll('.page');
 
     function goToPage(num) {
       if (num < 0 || num >= pages.length) return;
       pages.forEach(p => p.classList.remove('active'));
       pages[num].classList.add('active');
+      currentPage = num;
     }
 
-    
+    function startExperience() {
+      const intro = document.getElementById("intro");
+      const video = document.getElementById("introVideo");
+      const music = document.getElementById("bg-music");
 
+      video.play().catch(() => {});
+      music.play().catch(() => {});
 
-function startExperience() {
-  const intro = document.getElementById("intro");
-  const video = document.getElementById("introVideo");
-  const music = document.getElementById("bg-music");
-  intro.classList.add("close");
-  setTimeout(() => {
-    intro.style.display = "none";
-    video.play();
-    music.play();
-    goToPage(0);
-  }, 1000);
-}
+      intro.classList.add("close");
+      setTimeout(() => {
+        intro.style.display = "none";
+        goToPage(0);
+      }, 2000);
+    }
 
-function toggleMusic() {
-  const music = document.getElementById("bg-music");
-  if (music.paused) {
-    music.play();
-  } else {
-    music.pause();
-  }
-}
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      if (music.paused) music.play().catch(() => {});
+      else music.pause();
+    }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
