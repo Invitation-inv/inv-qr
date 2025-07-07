@@ -14,7 +14,6 @@
       color: white;
     }
 
-    /* الانترو */
     #intro {
       position: fixed;
       inset: 0;
@@ -82,9 +81,13 @@
     }
 
     .decor-img {
-      position: relative;
-      margin: 30px auto 0;
-      width: 250px;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      margin: 1px auto 0;
+      width: 300px;
       max-width: 80%;
       opacity: 0.9;
       display: block;
@@ -106,7 +109,7 @@
       border-radius: 10px;
       cursor: pointer;
       margin: 10px;
-      background-image: url('107831.jpg');
+      background-image: url('108549.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-color: transparent;
@@ -172,7 +175,10 @@
   <div id="nav-arrows">
     <div onclick="goToPage(currentPage + 1)">➡</div>
     <div onclick="goToPage(currentPage - 1)">⬅</div>
-  </div> <!-- صفحة الترحيب --> <div class="page" id="page1" style="background-image: url('123.jpg');">
+  </div>
+
+  <!-- صفحة الترحيب -->
+  <div class="page" id="page1" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h1 class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
       <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
@@ -183,7 +189,10 @@
       <p class="fade-in" style="animation-delay: 3.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
-  </div> <!-- صفحة التفاصيل --> <div class="page" id="page2" style="background-image: url('123.jpg');">
+  </div>
+
+  <!-- صفحة التفاصيل -->
+  <div class="page" id="page2" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h2>تفاصيل الحفل</h2>
       <p>📍 قاعة صدر المنصة - الرياض</p>
@@ -192,7 +201,10 @@
       <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
-  </div> <!-- صفحة التأكيد --> <div class="page" id="page3" style="background-image: url('123.jpg');">
+  </div>
+
+  <!-- صفحة التأكيد -->
+  <div class="page" id="page3" style="background-image: url('123.jpg');">
     <div class="page-content">
       <h2 id="attendanceTitle">هل ستحضر؟</h2>
       <div id="responseButtons">
@@ -206,7 +218,12 @@
       <button id="downloadBtn">تحميل QR</button>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
-  </div> <script>
+  </div>
+
+  <!-- مكتبة QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
     let currentPage = 0;
     const pages = document.querySelectorAll('.page');
 
@@ -217,142 +234,118 @@
       currentPage = num;
     }
 
- function startExperience() {
+   function startExperience() {
   const intro = document.getElementById("intro");
   const video = document.getElementById("introVideo");
   const music = document.getElementById("bg-music");
 
-  intro.classList.add("starting");
+  intro.classList.add("starting"); // يخفي الزر
 
+  // شغل الفيديو والموسيقى
   video.play().then(() => {
     music.play().catch(() => {});
+  }).catch(() => {
+    alert("يرجى الضغط مرتين للتشغيل بسبب إعدادات المتصفح.");
+  });
+
+  // لما يخلص الفيديو، يخفي الانترو ويبدأ أول صفحة
+  video.addEventListener('ended', () => {
     intro.classList.add("close");
     setTimeout(() => {
       intro.style.display = "none";
       goToPage(0);
     }, 2000);
-  }).catch(err => {
-    alert("يرجى الضغط مرتين للتشغيل بسبب إعدادات المتصفح.");
   });
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
-const token = new URLSearchParams(location.search).get("token") || "";
-const guestName = document.getElementById("guestName");
-const qrContainer = document.getElementById("qrContainer");
-const responseButtons = document.getElementById("responseButtons");
-const attendanceTitle = document.getElementById("attendanceTitle");
-const responseMsg = document.getElementById("responseMsg");
-const qrNote = document.getElementById("qrNote");
-const downloadBtn = document.getElementById("downloadBtn");
-const invitationCount = document.getElementById("invitationCount");
-let currentPage = 0;
-const pages = document.querySelectorAll('.page');
 
-guestName.innerText = ` حيّاك ${nameParam}!`;
-
-function goToPage(num) {
-  if (num < 0 || num >= pages.length) return;
-  pages.forEach(p => p.classList.remove('active'));
-  pages[num].classList.add('active');
-  currentPage = num;
-  try { bgMusic.play(); } catch {}
-}
-
-
-function toggleMusic() {
-  const bgMusic = document.getElementById("bg-music");
-  try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
-}
-
-function confirmAttendance(response) {
-  responseMsg.innerText = "⏳ جاري التسجيل...";
-  fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
-    .then(res => res.json())
-    .then(res => {
-      responseButtons.style.display = "none";
-      attendanceTitle.style.display = "none";
-      responseMsg.innerText = res.message;
-
-      if (res.status === "success" || res.status === "already") {
-        showQR(res.qr, res.max);
-      } else if (res.status === "declined") {
-        // لا يوجد QR في حالة الرفض
-        qrContainer.innerHTML = "";
-        qrNote.style.display = "none";
-        invitationCount.style.display = "none";
-      }
-    })
-    .catch(() => {
-      responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.";
-    });
-}
-
-function showQR(link, count) {
-  qrContainer.innerHTML = "";
-  new QRCode(qrContainer, { text: link, width: 200, height: 200 });
-  qrNote.style.display = "block";
-  invitationCount.style.display = "block";
-  invitationCount.innerText = `📩عدد الدعوات: ${count}`;
-  downloadBtn.style.display = "inline-block";
-}
-
-downloadBtn.onclick = () => {
-  const img = qrContainer.querySelector("img");
-  if (img) {
-    const link = document.createElement("a");
-    link.href = img.src;
-    link.download = "qr_code.png";
-    link.click();
-  }
-};
-
-function createFlyingButterflies() {
-  pages.forEach(page => {
-    for (let i = 0; i < 2; i++) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      b.style.left = Math.random() * 100 + '%';
-      b.style.animationDelay = (Math.random() * 10) + 's';
-      page.appendChild(b);
+    function toggleMusic() {
+      const bgMusic = document.getElementById("bg-music");
+      try { bgMusic.paused ? bgMusic.play() : bgMusic.pause(); } catch {}
     }
-  });
-}
 
-const countdownEl = document.getElementById("countdown");
-const eventDate = new Date("2025-07-05T21:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = eventDate - now;
-  if (diff < 0) return countdownEl.innerText = " بدأ الزفاف!";
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
-}, 1000);
+    const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+    const token = new URLSearchParams(location.search).get("token") || "";
+    const qrContainer = document.getElementById("qrContainer");
+    const responseButtons = document.getElementById("responseButtons");
+    const attendanceTitle = document.getElementById("attendanceTitle");
+    const responseMsg = document.getElementById("responseMsg");
+    const qrNote = document.getElementById("qrNote");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const invitationCount = document.getElementById("invitationCount");
 
-window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?token=${token}&check=true`)
-    .then(res => res.json())
-    .then(res => {
-      if (res.status === "already" || res.status === "used") {
-        showQR(res.qr, res.max);
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message;
-      } else if (res.status === "declined") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message || " نأسف لعدم تمكنك من الحضور.";
+    function confirmAttendance(response) {
+      responseMsg.innerText = "⏳ جاري التسجيل...";
+      fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+        .then(res => res.json())
+        .then(res => {
+          responseButtons.style.display = "none";
+          attendanceTitle.style.display = "none";
+          responseMsg.innerText = res.message;
+
+          if (res.status === "success" || res.status === "already") {
+            showQR(res.qr, res.max);
+          } else if (res.status === "declined") {
+            qrContainer.innerHTML = "";
+            qrNote.style.display = "none";
+            invitationCount.style.display = "none";
+          }
+        })
+        .catch(() => {
+          responseMsg.innerText = "❌ حدث خطأ أثناء الاتصال بالخادم.";
+        });
+    }
+
+    function showQR(link, count) {
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, { text: link, width: 200, height: 200 });
+      qrNote.style.display = "block";
+      invitationCount.style.display = "block";
+      invitationCount.innerText = `📩 عدد الدعوات: ${count}`;
+      downloadBtn.style.display = "inline-block";
+    }
+
+    downloadBtn.onclick = () => {
+      const img = qrContainer.querySelector("img");
+      if (img) {
+        const link = document.createElement("a");
+        link.href = img.src;
+        link.download = "qr_code.png";
+        link.click();
       }
-    })
-    .catch(() => {
-      responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
-    });
-});
-</script>
+    };
 
+    const countdownEl = document.getElementById("countdown");
+    const eventDate = new Date("2025-07-05T21:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+      if (diff < 0) return countdownEl.innerText = "بدأ الزفاف!";
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      countdownEl.innerHTML = `⏳ يتبقى <strong>${d}</strong> يوم <strong>${h}</strong> ساعة <strong>${m}</strong> دقيقة`;
+    }, 1000);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?token=${token}&check=true`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === "already" || res.status === "used") {
+            showQR(res.qr, res.max);
+            responseButtons.style.display = "none";
+            attendanceTitle.style.display = "none";
+            responseMsg.innerText = res.message;
+          } else if (res.status === "declined") {
+            responseButtons.style.display = "none";
+            attendanceTitle.style.display = "none";
+            responseMsg.innerText = res.message || "نأسف لعدم تمكنك من الحضور.";
+          }
+        })
+        .catch(() => {
+          responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
+        });
+    });
+  </script>
 </body>
 </html>
