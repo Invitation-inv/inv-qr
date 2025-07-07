@@ -56,7 +56,7 @@
     #intro.close {
       opacity: 0;
       pointer-events: none;
-      transition: opacity 2s ease;
+      transition: opacity 1s ease;
     }
 
     .page {
@@ -78,6 +78,7 @@
     .page-content {
       position: relative;
       z-index: 2;
+      margin-top: 80px
     }
 
     .decor-img {
@@ -87,7 +88,7 @@
       transform: translateX(-50%);
       z-index: 0;
       margin: 1px auto 0;
-      width: 300px;
+      width: 500px;
       max-width: 80%;
       opacity: 0.9;
       display: block;
@@ -198,7 +199,7 @@
       <p>📍 قاعة صدر المنصة - الرياض</p>
       <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
       <div id="countdown"></div>
-      <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="300" style="border:0; margin-top:20px;" allowfullscreen></iframe>
+      <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="100%" height="200" style="border:0; margin-top:20px;" allowfullscreen></iframe>
     </div>
     <img src="107830.png" alt="زخرفة" class="decor-img">
   </div>
@@ -276,7 +277,7 @@
 
     function confirmAttendance(response) {
       responseMsg.innerText = "⏳ جاري التسجيل...";
-      fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+      fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
         .then(res => res.json())
         .then(res => {
           responseButtons.style.display = "none";
@@ -328,7 +329,7 @@
     }, 1000);
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?token=${token}&check=true`)
+      fetch(`https://script.google.com/macros/s/AKfycbwUM2YqOt-RzM0bMExcF-bdenDzI1BnQTC-uUC7X6x9FSyWsUwv2enJKM_oHq7CB5bFiQ/exec?token=${token}&check=true`)
         .then(res => res.json())
         .then(res => {
           if (res.status === "already" || res.status === "used") {
