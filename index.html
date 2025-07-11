@@ -183,7 +183,7 @@
   <div class="page" id="page1" style="background-image: url('123.jpg');">
     <img src="107830.png" alt="زخرفة" class="decor-img">
     <div class="page-content">
-      <h1  id="guestName" class="fade-in" style="animation-delay: 0.5s;">حيّاك الله!</h1>
+      <h1 class="fade-in" id="welcomeText" style="animation-delay: 0.5s;">حيّاك الله، </h1>
       <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة</h2>
       <h3 class="fade-in" style="animation-delay: 1.5s;">بارك الله لهما وبارك عليهما وجمع بينهما بخير</h3>
       <p class="fade-in" style="animation-delay: 2s;">بقلوب تنبض بالحب وتغمرها السعادة</p>
@@ -276,6 +276,11 @@
     }
 
     const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+   
+const welcomeText = document.getElementById("welcomeText");
+if (welcomeText) {
+  welcomeText.innerText += nameParam;
+}
     const token = new URLSearchParams(location.search).get("token") || "";
     const qrContainer = document.getElementById("qrContainer");
     const responseButtons = document.getElementById("responseButtons");
