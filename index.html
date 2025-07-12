@@ -97,7 +97,7 @@
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
-      animation: fadeInText 2s forwards;
+      animation: fadeInText 4s forwards;
     }
 
     @keyframes fadeInText {
@@ -200,7 +200,7 @@
     <div class="page-content">
       <h2>تفاصيل الحفل</h2>
       <p>📍 قاعة صدر المنصة - الرياض</p>
-      <p>🕒 السبت 5 يوليو 2025 - الساعة 9 مساءً</p>
+      <p>🕒 الجمعة  25 يوليو 2025 - الساعة 9 مساءً</p>
       <div id="countdown"></div>
       <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="60%" height="200" style="border:0; margin-top:20px;" allowfullscreen></iframe>
     </div>
@@ -236,7 +236,7 @@
       requestAnimationFrame(() => {
         decor.style.opacity = 1;
       });
-    }, 3300); // الوقت اللي تبين بعده تبدأ الزخرفة تظهر (هنا 2 ثانية)
+    }, 3300); // صورة
   });
     let currentPage = 0;
     const pages = document.querySelectorAll('.page');
@@ -332,7 +332,7 @@ if (welcomeText) {
     };
 
     const countdownEl = document.getElementById("countdown");
-    const eventDate = new Date("2025-07-05T21:00:00").getTime();
+    const eventDate = new Date("2025-25-05T21:00:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = eventDate - now;
