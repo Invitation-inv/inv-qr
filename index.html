@@ -293,7 +293,7 @@ if (welcomeText) {
 
     function confirmAttendance(response) {
       responseMsg.innerText = "⏳ جاري التسجيل...";
-      fetch(`https://script.google.com/macros/s/AKfycbwy6bwc9tgNR1ANuW1uA47qrWY2SFHpXisAzFPHQCn9IvBhf46kkfu-mN0-K9xGBAosxQ/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
+      fetch(`https://script.google.com/macros/s/AKfycbw4Q85xWAS0_lAL7ohVU7ab9uEnbVJ-ZMO4cZEQ0gwgSlERwkQNBySBRxYS9nNPwnY7RA/exec?name=${encodeURIComponent(nameParam)}&token=${token}&response=${response}`)
         .then(res => res.json())
         .then(res => {
           responseButtons.style.display = "none";
@@ -345,7 +345,7 @@ if (welcomeText) {
     }, 1000);
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch(`https://script.google.com/macros/s/AKfycbwy6bwc9tgNR1ANuW1uA47qrWY2SFHpXisAzFPHQCn9IvBhf46kkfu-mN0-K9xGBAosxQ/exec?token=${token}&check=true`)
+      fetch(`https://script.google.com/macros/s/AKfycbw4Q85xWAS0_lAL7ohVU7ab9uEnbVJ-ZMO4cZEQ0gwgSlERwkQNBySBRxYS9nNPwnY7RA/exec?token=${token}&check=true`)
         .then(res => res.json())
         .then(res => {
           if (res.status === "already" || res.status === "used") {
