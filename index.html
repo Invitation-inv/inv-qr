@@ -322,14 +322,7 @@ if (welcomeText) {
       downloadBtn.style.display = "inline-block";
     }
 
-    downloadBtn.onclick = () => {
-      const img = qrContainer.querySelector("img");
-      if (img) {
-        const link = document.createElement("a");
-        link.href = img.src;
-        link.download = "qr_code.png";
-        link.click();
-      }
+  
     };
 
     const countdownEl = document.getElementById("countdown");
