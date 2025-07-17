@@ -221,6 +221,8 @@
       <div id="qrContainer" style="margin-top: 20px;"></div>
       <p id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</p>
       <p id="invitationCount" style="font-size: 14px; display: none;"></p>
+     <button id="downloadBtn" style="display: none; margin-top: 10px;">📥 تحميل رمز الدخول</button>
+
     </div>
   </div>
 
@@ -322,7 +324,14 @@ if (welcomeText) {
       downloadBtn.style.display = "inline-block";
     }
 
-  
+    downloadBtn.onclick = () => {
+      const img = qrContainer.querySelector("img");
+      if (img) {
+        const link = document.createElement("a");
+        link.href = img.src;
+        link.download = "qr_code.png";
+        link.click();
+      }
     };
 
     const countdownEl = document.getElementById("countdown");
