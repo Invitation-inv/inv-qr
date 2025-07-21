@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -159,17 +159,65 @@
         padding: 12px 18px;
       }
     }
+    #bg-video {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+#intro {
+  background-color: black;
+}
+#intro-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+#center-img {
+  width: 150px;
+  z-index: 2;
+}
+.corner {
+  position: absolute;
+  width: 80px;
+  animation: rotate360 10s linear infinite;
+  z-index: 2;
+}
+.corner1 {
+  top: 20px;
+  right: 20px;
+}
+.corner2 {
+  bottom: 20px;
+  left: 20px;
+}
+@keyframes rotate360 {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
   </style>
 </head>
 <body>
-  <div id="intro">
-    <video id="introVideo" muted playsinline>
-      <source src="107763.mp4" type="video/mp4" />
-    </video>
-    <div class="overlay">
-      <button onclick="startExperience()">ابدأ</button>
-    </div>
+<video autoplay muted loop id="bg-video">
+  <source src="110753.mp4" type="video/mp4" />
+</video>
+<div id="intro">
+  <img src="110767.jpg" id="intro-bg" alt="خلفية الانترو">
+  <div class="overlay">
+    <img src="222.png" id="center-img" alt="وسط">
+    <img src="333.png" class="corner corner1" alt="زاوية 1">
+    <img src="333.png" class="corner corner2" alt="زاوية 2">
+    <button onclick="startExperience()">ابدأ</button>
   </div>
+</div>
+
   <button class="music-btn" onclick="toggleMusic()">🎵</button>
   <audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
@@ -180,23 +228,22 @@
   </div>
 
   <!-- صفحة الترحيب -->
-  <div class="page" id="page1" style="background-image: url('123.jpg');">
-    <img src="107830.png" alt="زخرفة" class="decor-img" >
+     <div class="page" id="page1" >
+
     <div class="page-content">
       <h1 class="fade-in" id="welcomeText" style="animation-delay: 0.5s;">حيّاك الله، </h1>
-      <h2 class="fade-in" style="animation-delay: 1.5s;">دعوة خاصة</h2>
-      <h3 class="fade-in" style="animation-delay: 2.5s;">بارك الله لهما وبارك عليهما وجمع بينهما بخير</h3>
-      <p class="fade-in" style="animation-delay: 3.5s;">بقلوب تنبض بالحب وتغمرها السعادة</p>
+     <img src="1000216998.png" alt="صورة دعوه خاصة" class="fade-in" style="animation-delay: 1.5s; width: 175px; max-width: 90%; margin: 20px auto; display: block; ">
+     <img src="111270.png" alt="صورة " class="fade-in" style="animation-delay: 2.5s; width: 175px; max-width: 90%; margin: 20px auto; display: block; ">
+      <p class="fade-in" style="animation-delay: 3.5s;text-shadow: 2px 2px 4px rgb(0,0, 0,0.3);">بقلوب تنبض بالحب وتغمرها السعادة</p>
       <p class="fade-in" style="animation-delay: 4.5s;">ندعوكم لحضور</p>
       <h4 class="fade-in" style="animation-delay: 5.5s;">حفل زفاف </h4>
-     <img src="108691.png" alt="صورة أسماء" class="fade-in" style="animation-delay: 6.5s; width: 175px; max-width: 90%; margin: 20px auto; display: block; ">
+     <img src="1000216997.png" alt="صورة أسماء" class="fade-in" style="animation-delay: 6.5s; width: 175px; max-width: 90%; margin: 20px auto; display: block; ">
       <p class="fade-in" style="animation-delay: 7.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
     </div>
   </div>
 
   <!-- صفحة التفاصيل -->
-  <div class="page" id="page2" style="background-image: url('123.jpg');">
-    <img src="107830.png" alt="زخرفة" class="decor-img">
+   <div class="page" id="page2">
     <div class="page-content">
       <h2>تفاصيل الحفل</h2>
       <p>📍 قاعة صدر المنصة - الرياض</p>
@@ -209,13 +256,12 @@
   </div>
 
   <!-- صفحة التأكيد -->
-  <div class="page" id="page3" style="background-image: url('123.jpg');">
-    <img src="107830.png" alt="زخرفة" class="decor-img">
+   <div class="page" id="page3" >
     <div class="page-content">
       <h2 id="attendanceTitle">هل ستحضر؟</h2>
       <div id="responseButtons" style="margin-top:30px  ">
-        <button style="padding:6px 12px; front-size: 14px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
-        <button style="padding:6px 12px; front-size: 14px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
+        <button style="padding:6px 12px;font-size: 14px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
+        <button style="padding:6px 12px;font-size: 14px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
       </div>
       <p id="responseMsg" style="margin-top: 20px;"></p>
       <div id="qrContainer" style="margin-top: 20px;"></div>
@@ -252,17 +298,17 @@
     }
 
     function startExperience() {
-      const intro = document.getElementById("intro");
-      const video = document.getElementById("introVideo");
-      const music = document.getElementById("bg-music");
+    const intro = document.getElementById("intro");
+    const music = document.getElementById("bg-music");
 
-      intro.classList.add("starting");
+    intro.classList.add("close");
+    music.play().catch(() => {});
 
-      video.play().then(() => {
-        music.play().catch(() => {});
-      }).catch(() => {
-        alert("يرجى الضغط مرتين للتشغيل بسبب إعدادات المتصفح.");
-      });
+    setTimeout(() => {
+        intro.style.display = "none";
+        goToPage(0);
+        }, 500);
+    }
 
       video.addEventListener('ended', () => {
         intro.classList.add("close");
@@ -271,7 +317,7 @@
           goToPage(0);
         }, 500);
       });
-    }
+
 
     function toggleMusic() {
       const bgMusic = document.getElementById("bg-music");
