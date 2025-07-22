@@ -413,21 +413,17 @@ if (welcomeText) {
         .catch(() => {
           responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
         });
-     document.addEventListener('DOMContentLoaded', () => {
-  const img = document.getElementById('detail-image');
-  const hasShownImage = localStorage.getItem('shownDetailImage');
-
-  if (!hasShownImage) {
+    window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      img.classList.add('visible');
-      img.classList.remove('hidden');
-      localStorage.setItem('shownDetailImage', 'true');
-    }, 500); // تأخير بسيط بعد الدخول
-  } else {
-    img.classList.add('visible');
-    img.classList.remove('hidden');
-  }
-});
+      const decor = document.getElementById('decorImg');
+      decor.style.display = 'block';
+      decor.style.opacity = 0;
+      decor.style.transition = 'opacity 1s ease';
+      requestAnimationFrame(() => {
+        decor.style.opacity = 1;
+      });
+    }, 3300); // صورة
+  });
 
     });
   </script>
