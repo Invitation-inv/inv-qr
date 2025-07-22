@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -13,6 +13,15 @@
       overflow-x: hidden;
       color: white;
     }
+    
+  .hidden {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+  }
+  .visible {
+
+  opacity: 1;
+}
 
     #intro {
       position: fixed;
@@ -185,7 +194,7 @@
 }
 .corner {
   position: absolute;
-  width: 140px;
+  width: 80px;
   animation: rotate360 10s linear infinite;
   z-index: 2;
 }
@@ -231,14 +240,9 @@
      <div class="page" id="page1" >
 
     <div class="page-content">
-      <h1 class="fade-in" id="welcomeText" style="animation-delay: 0.5s;">حيّاك الله، </h1>
-     <img src="1000216998.png" alt="صورة دعوه خاصة" class="fade-in" style="animation-delay: 1.5s; width: 130px; max-width: 90%; margin: 7px auto; display: block; margin-top:0; margin-bottom:0 ">
-     <img src="111270.png" alt="صورة " class="fade-in" style="animation-delay: 2.5s; width: 160px; max-width: 90%; margin: 7px auto; display: block; margin-top:0; margin-bottom:0 ">
-      <p class="fade-in" style="animation-delay: 3.5s;text-shadow: 2px 2px 4px rgb(0,0, 0,0.3);margin-top:0; margin-bottom:0">بقلوب تنبض بالحب وتغمرها السعادة</p>
-      <p class="fade-in" style="animation-delay: 4.5s;">ندعوكم لحضور</p>
-      <h4 class="fade-in" style="animation-delay: 5.5s;">حفل زفاف </h4>
-     <img src="1000216997.png" alt="صورة أسماء" class="fade-in" style="animation-delay: 6.5s; width: 130px; max-width: 90%; margin: 7px auto; display: block; margin-top:0; margin-bottom:0">
-      <p class="fade-in" style="animation-delay: 7.5s;">اللهم ارزقنا التمام الجميل والعقد المتين</p>
+      <h1 class="fade-in" id="welcomeText" >حيّاك الله، </h1>
+     <img id="detail-image" src="111368.png" class="fade-in-image" alt="تفاصيل" />
+
     </div>
   </div>
 
@@ -276,17 +280,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script>
-  window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  const img = document.getElementById('detail-image');
+  const hasShownImage = localStorage.getItem('shownDetailImage');
+
+  if (!hasShownImage) {
     setTimeout(() => {
-      const decor = document.getElementById('decorImg');
-      decor.style.display = 'block';
-      decor.style.opacity = 0;
-      decor.style.transition = 'opacity 1s ease';
-      requestAnimationFrame(() => {
-        decor.style.opacity = 1;
-      });
-    }, 3300); // صورة
-  });
+      img.classList.add('visible');
+      img.classList.remove('hidden');
+      localStorage.setItem('shownDetailImage', 'true');
+    }, 500); // تأخير بسيط بعد الدخول
+  } else {
+    img.classList.add('visible');
+    img.classList.remove('hidden');
+  }
+});
+
     let currentPage = 0;
     const pages = document.querySelectorAll('.page');
 
