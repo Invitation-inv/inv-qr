@@ -312,26 +312,19 @@
       currentPage = num;
     }
 
-    function startExperience() {
-    const intro = document.getElementById("intro");
-    const music = document.getElementById("bg-music");
+function startExperience() {
+  const intro = document.getElementById("intro");
+  const music = document.getElementById("bg-music");
 
-    intro.classList.add("close");
-    music.play().catch(() => {});
+  intro.classList.add("close");
+  music.play().catch(() => {});
 
-    setTimeout(() => {
-        intro.style.display = "none";
-        goToPage(0);
-        }, 500);
-    }
-
-      video.addEventListener('ended', () => {
-        intro.classList.add("close");
-        setTimeout(() => {
-          intro.style.display = "none";
-          goToPage(0);
-        }, 500);
-      });
+  setTimeout(() => {
+    // إزالة العنصر بدل إخفائه فقط
+    intro.remove();
+    goToPage(0);
+  }, 1000); // أعطِ مهلة كافية لإنهاء الانتقال
+}
 
 
     function toggleMusic() {
