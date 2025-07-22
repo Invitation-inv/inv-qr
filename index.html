@@ -284,12 +284,21 @@
 
     </div>
   </div>
-
-  <!-- مكتبة QR -->
+<!-- مكتبة QR -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script>
-
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const decor = document.getElementById('decorImg');
+      decor.style.display = 'block';
+      decor.style.opacity = 0;
+      decor.style.transition = 'opacity 1s ease';
+      requestAnimationFrame(() => {
+        decor.style.opacity = 1;
+      });
+    }, 3300); // صورة
+  });
     let currentPage = 0;
     const pages = document.querySelectorAll('.page');
 
@@ -382,7 +391,7 @@ if (welcomeText) {
         link.click();
       }
     };
-     
+
     const countdownEl = document.getElementById("countdown");
     const eventDate = new Date("2025-07-25T21:00:00").getTime();
     setInterval(() => {
@@ -413,18 +422,6 @@ if (welcomeText) {
         .catch(() => {
           responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
         });
-    window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      const decor = document.getElementById('decorImg');
-      decor.style.display = 'block';
-      decor.style.opacity = 0;
-      decor.style.transition = 'opacity 1s ease';
-      requestAnimationFrame(() => {
-        decor.style.opacity = 1;
-      });
-    }, 3300); // صورة
-  });
-
     });
   </script>
 </body>
