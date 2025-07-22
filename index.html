@@ -199,7 +199,7 @@
 #center-img {
   width: 200px;
   z-index: 2;
- transform: translateY(-9px);
+ transform: translateY(-90px);
 
 }
 .corner {
@@ -264,7 +264,6 @@
       <h4>🕒 الجمعة  25 يوليو 2025 - الساعة 9 مساءً</h3>
       <div id="countdown"></div>
       <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="60%" height="200" style="border:0; margin-top:20px;" allowfullscreen></iframe>
-       <div id="countdown"></div>
 
     </div>
   </div>
@@ -290,21 +289,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const img = document.getElementById('detail-image');
-  const hasShownImage = localStorage.getItem('shownDetailImage');
-
-  if (!hasShownImage) {
-    setTimeout(() => {
-      img.classList.add('visible');
-      img.classList.remove('hidden');
-      localStorage.setItem('shownDetailImage', 'true');
-    }, 500); // تأخير بسيط بعد الدخول
-  } else {
-    img.classList.add('visible');
-    img.classList.remove('hidden');
-  }
-});
 
     let currentPage = 0;
     const pages = document.querySelectorAll('.page');
@@ -398,7 +382,7 @@ if (welcomeText) {
         link.click();
       }
     };
-
+     
     const countdownEl = document.getElementById("countdown");
     const eventDate = new Date("2025-07-25T21:00:00").getTime();
     setInterval(() => {
@@ -429,6 +413,22 @@ if (welcomeText) {
         .catch(() => {
           responseMsg.innerText = "❌ لم نتمكن من التحقق من حالتك.";
         });
+     document.addEventListener('DOMContentLoaded', () => {
+  const img = document.getElementById('detail-image');
+  const hasShownImage = localStorage.getItem('shownDetailImage');
+
+  if (!hasShownImage) {
+    setTimeout(() => {
+      img.classList.add('visible');
+      img.classList.remove('hidden');
+      localStorage.setItem('shownDetailImage', 'true');
+    }, 500); // تأخير بسيط بعد الدخول
+  } else {
+    img.classList.add('visible');
+    img.classList.remove('hidden');
+  }
+});
+
     });
   </script>
 </body>
