@@ -220,6 +220,15 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.transparent-box {
+  background-color: rgba(0, 0, 0, 0.6); /* أسود مع شفافية */
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  max-width: 90%;
+  margin: auto;
+  text-align: center;
+}
 
   </style>
 </head>
@@ -250,8 +259,17 @@
      <div class="page" id="page1" >
 
     <div class="page-content">
-      <h1  id="welcomeText" style = margin-top:-80px; >حيّاك الله، </h1>
-     <img id="detail-image" src="111368.png" class="image-full" alt="تفاصيل" />
+        <div class="transparent-box">
+          <h1 class="fade-in" id="welcomeText" style="animation-delay: 0.5s;">حيّاك الله، </h1>
+          <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة </h2>
+          <h3 class="fade-in" style="animation-delay: 1.5s;">بارك الله لهم وبارك عليهما وجمع بينهم في خير</h3>
+          <h4 class="fade-in" style="animation-delay: 2s;">نتشرف بدعوتكم </h4>
+          <h5 class="fade-in" style="animation-delay: 2.5s;">لحفل زفاف </h5>
+          <h6 class="fade-in" style="animation-delay: 3s;">نواف & اسماء </h6>
+          <h7 class="fade-in" style="animation-delay: 3.5s;">اللهم ألف بين قلوبهم،وأسعد حياتهم،واجعل بينهم مودة ورحمة</h7>
+
+
+         </div>
 
     </div>
   </div>
@@ -259,28 +277,33 @@
   <!-- صفحة التفاصيل -->
    <div class="page" id="page2">
     <div class="page-content">
-      <h1>تفاصيل الحفل</h1>
-      <h2>📍 قاعة صدر المنصة - الرياض</h2>
-      <h4>🕒 الجمعة  25 يوليو 2025 - الساعة 9 مساءً</h3>
-      <div id="countdown"></div>
-      <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="60%" height="200" style="border:0; margin-top:20px;" allowfullscreen></iframe>
-
+       <div class="transparent-box">
+   
+         <h1>تفاصيل الحفل</h1>
+         <h2>📍 قاعة صدر المنصة - الرياض</h2>
+         <h4>🕒 الجمعة  25 يوليو 2025 - الساعة 9 مساءً</h3>
+         <div id="countdown"></div>
+         <iframe src="https://www.google.com/maps?q=24.7136,46.6753&output=embed" width="60%" height="200" style="border:0; margin-top:20px;" allowfullscreen></iframe>
+       </div>
     </div>
   </div>
 
   <!-- صفحة التأكيد -->
    <div class="page" id="page3" >
     <div class="page-content">
-      <h2 id="attendanceTitle">هل ستحضر؟</h2>
-      <div id="responseButtons" style="margin-top:30px  ">
-        <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
-        <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
-      </div>
-      <p id="responseMsg" style="margin-top: 20px;"></p>
-      <div id="qrContainer" style="margin-top: 20px;"></div>
-      <h1 id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</h1>
-      <h2 id="invitationCount" style="font-size: 14px; display: none;"></h2>
-     <button id="downloadBtn" style="display: none; margin-top: 10px;">📥 تحميل رمز الدخول</button>
+       <div class="transparent-box">
+      
+            <h2 id="attendanceTitle">هل ستحضر؟</h2>
+            <div id="responseButtons" style="margin-top:30px  ">
+              <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
+              <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
+            </div>
+            <p id="responseMsg" style="margin-top: 20px;"></p>
+            <div id="qrContainer" style="margin-top: 20px;"></div>
+            <h1 id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</h1>
+            <h2 id="invitationCount" style="font-size: 14px; display: none;"></h2>
+           <button id="downloadBtn" style="display: none; margin-top: 10px;">📥 تحميل رمز الدخول</button>
+        </div>
 
     </div>
   </div>
