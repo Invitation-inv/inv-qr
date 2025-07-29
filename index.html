@@ -233,9 +233,10 @@
   </style>
 </head>
 <body>
-<video autoplay muted loop id="bg-video">
-  <source src="110753.mp4" type="video/mp4" />
+ <video autoplay muted loop playsinline id="bg-video">
+  <source src="110753.mp4" type="video/mp4">
 </video>
+
 <div id="intro">
   <img src="110767.jpg" id="intro-bg" alt="خلفية الانترو">
   <div class="overlay">
@@ -261,11 +262,19 @@
     <div class="page-content">
         <div class="transparent-box">
           <h1 class="fade-in" id="welcomeText" style="animation-delay: 0.5s;">حيّاك الله، </h1>
+
+         
           <h2 class="fade-in" style="animation-delay: 1s;">دعوة خاصة </h2>
+
+         
           <h3 class="fade-in" style="animation-delay: 1.5s;">بارك الله لهم وبارك عليهما وجمع بينهم في خير</h3>
+         
           <h4 class="fade-in" style="animation-delay: 2s;">نتشرف بدعوتكم </h4>
+         
           <h5 class="fade-in" style="animation-delay: 2.5s;">لحفل زفاف </h5>
+         
           <h6 class="fade-in" style="animation-delay: 3s;">نواف & اسماء </h6>
+         
           <h7 class="fade-in" style="animation-delay: 3.5s;">اللهم ألف بين قلوبهم،وأسعد حياتهم،واجعل بينهم مودة ورحمة</h7>
 
 
@@ -412,7 +421,7 @@ if (welcomeText) {
     };
 
     const countdownEl = document.getElementById("countdown");
-    const eventDate = new Date("2025-07-25T21:00:00").getTime();
+    const eventDate = new Date("2025-08-5T21:00:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = eventDate - now;
