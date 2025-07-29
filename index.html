@@ -304,14 +304,14 @@
       
             <h2 id="attendanceTitle">هل ستحضر؟</h2>
             <div id="responseButtons" style="margin-top:30px  ">
-              <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
-              <button style="padding:6px 12px;font-size: 30px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
+              <button style="padding:6px 12px;font-size: 20px ;border-radius:5px;" onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
+              <button style="padding:6px 12px;font-size: 20px ;border-radius:5px;" onclick="confirmAttendance('no')">لا، أعتذر عن الحضور</button>
             </div>
             <p id="responseMsg" style="margin-top: 20px;"></p>
             <div id="qrContainer" style="margin-top: 20px;"></div>
             <h1 id="qrNote" style="display: none; font-size: 14px;">📌 استخدم رمز الدخول عند الوصول للقاعة.</h1>
             <h2 id="invitationCount" style="font-size: 14px; display: none;"></h2>
-           <button id="downloadBtn" style="display: none; margin-top: 10px;">📥 تحميل رمز الدخول</button>
+           <button id="downloadBtn" style="display: none; margin-top: 10px;">📥تحميل الدعوة</button>
         </div>
 
     </div>
@@ -421,7 +421,7 @@ if (welcomeText) {
     };
 
     const countdownEl = document.getElementById("countdown");
-    const eventDate = new Date("2025-08-5T21:00:00").getTime();
+    const eventDate = new Date("2025-08-05T21:00:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = eventDate - now;
